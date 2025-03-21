@@ -4,3 +4,4 @@ __pycache__/*
 .idea
 src/__pycache__/*
 .pytest_cache/*
+src/.pytest_cache/*
