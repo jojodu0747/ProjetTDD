@@ -2,3 +2,4 @@ donnees_jeux_olympiques/*
 .DS_Store
 __pycache__/*
 .idea
+src/__pycache__/*
