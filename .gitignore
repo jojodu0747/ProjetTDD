@@ -3,3 +3,4 @@ donnees_jeux_olympiques/*
 __pycache__/*
 .idea
 src/__pycache__/*
+.pytest_cache/*
