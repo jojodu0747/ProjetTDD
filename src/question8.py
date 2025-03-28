@@ -14,9 +14,9 @@ bdd_pays_sexes["Ratio_F_H"] = bdd_pays_sexes["F"] / bdd_pays_sexes["M"]
 
 bdd_pays_sexes = bdd_pays_sexes.sort_values(by="Ratio_F_H", ascending=False)
 
-print("Ces pays ont le ratio F/H le plus haut : ", bdd_pays_sexes.head(10))
-print("Ces pays ont le ratio F/H le plus bas : ", bdd_pays_sexes.tail(10))
+print("Ces pays ont le ratio F/H le plus haut : \n", bdd_pays_sexes.head(10))
+print("Ces pays ont le ratio F/H le plus bas : \n", bdd_pays_sexes.tail(10))
 
 #idee 1 : remplacer les NOC par des pays
 #idee 2 : choisir le nombre medailles (notion de représentativité)
-#idee 3 : periode
+#idee 3 : periode (f(x1,x2,...,periode=None))
