@@ -11,3 +11,4 @@ nb_med_France_sorted = nb_med_France.sort_values(ascending=False)
 print(nb_med_France_sorted.head(10))
 
 #idee 1 : choisir periode
+# def f(x1, x2, ..., periode = None)
