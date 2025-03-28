@@ -19,3 +19,4 @@ print("Ces pays ont le ratio F/H le plus bas : ", bdd_pays_sexes.tail(10))
 
 #idee 1 : remplacer les NOC par des pays
 #idee 2 : choisir le nombre medailles (notion de représentativité)
+#idee 3 : periode

@@ -10,3 +10,4 @@ nb_med_France = med_France.groupby(["Sport"]).size()
 nb_med_France_sorted = nb_med_France.sort_values(ascending=False)
 print(nb_med_France_sorted.head(10))
 
+#idee 1 : choisir periode
