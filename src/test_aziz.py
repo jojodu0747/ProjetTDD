@@ -1,5 +1,3 @@
-import pandas as pd
-from base_dd import BDD_EVENTS, BDD_REGIONS
-
+from base_dd import BDD_EVENTS
 
 print(BDD_EVENTS.describe())
