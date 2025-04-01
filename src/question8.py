@@ -17,6 +17,7 @@ bdd_pays_sexes.sort_values(by="Ratio_F_H", ascending=False, inplace=True)
 bdd_pays_sexes = bdd_pays_sexes.merge(BDD_REGIONS[['NOC', 'region', 'notes']], on='NOC', how='left')
 bdd_pays_sexes.rename(columns={'region': 'Pays'}, inplace=True)
 bdd_pays_sexes.drop(columns=['NOC'], inplace=True)
+bdd_pays_sexes = bdd_pays_sexes.reindex(["Pays", "notes", "Ratio_F_H", "F", "M"], axis=1)
 
 print("Ces pays ont le ratio F/H le plus haut : \n", bdd_pays_sexes.head(10))
 print("Ces pays ont le ratio F/H le plus bas : \n", bdd_pays_sexes.tail(10))
