@@ -22,6 +22,5 @@ bdd_pays_sexes = bdd_pays_sexes.reindex(["Pays", "notes", "Ratio_F_H", "F", "M"]
 print("Ces pays ont le ratio F/H le plus haut : \n", bdd_pays_sexes.head(10))
 print("Ces pays ont le ratio F/H le plus bas : \n", bdd_pays_sexes.tail(10))
 
-#idee 1 : remplacer les NOC par des pays
 #idee 2 : choisir le nombre medailles min (notion de représentativité)
 #idee 3 : periode (f(x1,x2,...,periode=None))
