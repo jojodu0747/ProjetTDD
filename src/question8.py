@@ -24,3 +24,4 @@ print("Ces pays ont le ratio F/H le plus bas : \n", bdd_pays_sexes.tail(10))
 
 #idee 2 : choisir le nombre medailles min (notion de représentativité)
 #idee 3 : periode (f(x1,x2,...,periode=None))
+#idee 4 : f(x1,x2,..,group_by_region=False) avec (region = df.loc[df["NOC"] == valeur_noc, "region"].values)
