@@ -15,4 +15,3 @@ print(len(Q1))
 #         medal_count += 1
 
 # print(medal_count)
-=
