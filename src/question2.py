@@ -30,9 +30,11 @@ def question2(liste_sessions, type_medaille, combine=False):
         BDD_EVENTS['Medal'].isin(type_medaille)
         & BDD_EVENTS['Games'].isin(liste_sessions),
         ['ID', 'Team', 'Games', 'Medal']
+        ['ID', 'NOC', 'Games', 'Medal']
         ]
     if combine:
         ag = df.groupby('Team')['Medal'].count()
+        ag = df.groupby('NOC')['Medal'].count()
         min = (list(ag.iloc[[ag.argmin()]].index)[0], int(ag.min()))
         max = (list(ag.iloc[[ag.argmax()]].index)[0], int(ag.max()))
         res = [(min, max)]
@@ -41,6 +43,7 @@ def question2(liste_sessions, type_medaille, combine=False):
         for session in liste_sessions:
             ag = (df.loc[df['Games']
                          == session].groupby(['Team', 'Games'])['Medal'].count())
+                         == session].groupby(['NOC', 'Games'])['Medal'].count())
             min = (list(ag.iloc[[ag.argmin()]].index)[0][0], int(ag.min()))
             max = (list(ag.iloc[[ag.argmax()]].index)[0][0], int(ag.max()))
             res.append((min, max))
@@ -48,3 +51,4 @@ def question2(liste_sessions, type_medaille, combine=False):
 
 
 print(question2(["2016 Summer", "2012 Summer"], ["Gold"], True))
+print(question2(["2016 Summer", "2012 Summer"], ["Gold"]))
