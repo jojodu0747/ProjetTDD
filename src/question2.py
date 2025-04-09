@@ -10,7 +10,7 @@ def question2(liste_sessions, type_medaille, combine=False):
     Parameters
     __________
 
-    liste_sessions: list[tuple]
+    liste_sessions: list[str]
         Liste des sessions prises en compte par la fonction
 
     type_medaille: list[str]
@@ -45,3 +45,6 @@ def question2(liste_sessions, type_medaille, combine=False):
             max = (list(ag.iloc[[ag.argmax()]].index)[0][0], int(ag.max()))
             res.append((min, max))
     return res
+
+
+print(question2(["2016 Summer", "2012 Summer"], ["Gold"], True))
