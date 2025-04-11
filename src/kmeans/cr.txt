@@ -1,0 +1,5 @@
+comtpe rendu 
+7mai 21H rédaction du rapport ça arrive vite (+ nos codes) réponses, le code
+
+Idées pour les kmeans faire une fonctions avec une liste des sports
+et trouver des charactéristiques communes des sportifs selon les sports
