@@ -3,6 +3,8 @@
 # par des hommes le plus haut/le plus bas ?
 
 from base_dd import BDD_EVENTS, BDD_REGIONS
+
+
 def ratio_F_H(group_by_region=False):
     BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]  # on filtre les pays inconnus
     BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["NOC"] != "IOA"]
@@ -37,6 +39,7 @@ def ratio_F_H(group_by_region=False):
 
 
 ratio_F_H()
+
 # idee 2 : choisir le nombre medailles min (notion de représentativité)
 # idee 3 : periode (f(x1,x2,...,periode=None))
 # idee 4 : f(x1,x2,..,group_by_region=False) avec (region = df.loc[df["NOC"] == valeur_noc, "region"].values)
