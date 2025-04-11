@@ -4,9 +4,10 @@ from base_dd import adresse
 
 def plus_medailles(region="France", limit=10, offset=0):
     noc = ""
+    dic_nb_sport = {}
     with open(adresse + "noc_regions.csv", 'r', newline='') as bdd_regions:
-        sprd_reg = csv.reader(bdd_regions)  #rend le header et l'"enlève" du spamreader
-        header_reg = next(sprd_reg)
+        sprd_reg = csv.reader(bdd_regions)
+        header_reg = next(sprd_reg)  #rend le header et l'"enlève" du spamreader
         idx_noc_reg = header_reg.index('NOC')  #indices de ces variables dans noc_regions
         idx_region = header_reg.index('region')
         for row in sprd_reg:
@@ -16,7 +17,6 @@ def plus_medailles(region="France", limit=10, offset=0):
 
     with open(adresse + "athlete_events.csv", 'r', newline='') as bdd_athlete:
         spamreader = csv.reader(bdd_athlete)
-        dic_nb_sport = {}
         header = next(spamreader)
         idx_NOC = header.index('NOC')  #indices de ces variables dans athlete_event
         idx_medal = header.index('Medal')
