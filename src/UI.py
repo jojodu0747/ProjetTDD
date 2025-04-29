@@ -5,7 +5,7 @@ root = tk.Tk()
 root.title("ProjetTDD")
 root.geometry("1280x720")
 root.minsize(1280, 720)
-root.configure(bg="#333333")
+root.configure(bg="#25292D")
 
 
 def event_change_couleur(event, couleur):
@@ -26,17 +26,17 @@ def page_principale():
                       text="Par Aziz Seghaier, Joé Napolitano, Louis Stanisière,"
                       " Elliot Meriot",
                       font=("Arial", 14),
-                      bg="#333333",
+                      bg="#25292D",
                       fg="#ffffff")
     label2 = tk.Label(root, text="Projet TDD: Jeux Olympique", font=("Arial", 40),
-                      bg="#333333",
+                      bg="#25292D",
                       fg="#ffffff")
     frame1 = tk.Frame(root, bg="#4a4a4a", padx=5, pady=10,
                       borderwidth=3, relief="solid")
     bouton1 = tk.Label(frame1,
                        text="Q1: Déterminez le nombre de médailles gagnées par Michael"
                        " Phelps. Son nom complet est Michael Fred Phelps, II.",
-                       bg="#333333",
+                       bg="#25292D",
                        fg="#ffffff",
                        font=("Arial", 20),
                        anchor="w",
@@ -49,7 +49,7 @@ def page_principale():
                        text="Q2: Trouvez des bornes inférieures et supérieures pour "
                        "le nombre de médailles par nation pour les Jeux Olympiques"
                        " de 2016.",
-                       bg="#333333",
+                       bg="#25292D",
                        fg="#ffffff",
                        font=("Arial", 20),
                        anchor="w",
@@ -61,7 +61,7 @@ def page_principale():
     bouton3 = tk.Label(frame1,
                        text="Q3: Déterminer quelles sont les 5 premières nations qui"
                        " ont eu le plus de médaillés au saut en longueur en 200 ans.",
-                       bg="#333333",
+                       bg="#25292D",
                        fg="#ffffff",
                        font=("Arial", 20),
                        anchor="w",
@@ -73,7 +73,7 @@ def page_principale():
     bouton4 = tk.Label(frame1,
                        text="Q4: Déterminer l'âge moyen des médaillés d'or au JO"
                        " d'hiver et au JO d'été.",
-                       bg="#333333",
+                       bg="#25292D",
                        fg="#ffffff",
                        font=("Arial", 20),
                        anchor="w",
@@ -85,7 +85,7 @@ def page_principale():
     bouton5 = tk.Label(frame1,
                        text="Q5: Quel est la personne la plus et la plus moin agée"
                        " ayant eu une médaille d'or.",
-                       bg="#333333",
+                       bg="#25292D",
                        fg="#ffffff",
                        font=("Arial", 20),
                        anchor="w",
@@ -97,7 +97,7 @@ def page_principale():
     bouton6 = tk.Label(frame1,
                        text="Q6: Quelle est la moyenne d'age des femmes et hommes"
                        " médaillées aux Jeux Olympiques depuis leur création ?",
-                       bg="#333333",
+                       bg="#25292D",
                        fg="#ffffff",
                        font=("Arial", 20),
                        anchor="w",
@@ -109,7 +109,7 @@ def page_principale():
     bouton7 = tk.Label(frame1,
                        text="Q7: Quelle est la répartition des médailles par continent"
                        " au jeux Olympiques de 2016?.",
-                       bg="#333333",
+                       bg="#25292D",
                        fg="#ffffff",
                        font=("Arial", 20),
                        anchor="w",
@@ -123,7 +123,7 @@ def page_principale():
                        " médailles gagnées par des femmes sur nombre de médailles"
                        " gagnées par"
                        "\n des hommes le plus haut/le plus bas?",
-                       bg="#333333",
+                       bg="#25292D",
                        fg="#ffffff",
                        font=("Arial", 20),
                        anchor="w",
@@ -136,7 +136,7 @@ def page_principale():
     bouton9 = tk.Label(frame1,
                        text="Q9: Comment le taux de participation des femmes aux Jeux"
                        " Olympiques a-t-elle évolué au fil du temps ?",
-                       bg="#333333",
+                       bg="#25292D",
                        fg="#ffffff",
                        font=("Arial", 20),
                        anchor="w",
@@ -148,7 +148,7 @@ def page_principale():
     bouton10 = tk.Label(frame1,
                         text="Q10: Quel sont les sports où la France a gagné le plus"
                         " de médaille ?",
-                        bg="#333333",
+                        bg="#25292D",
                         fg="#ffffff",
                         font=("Arial", 20),
                         anchor="w",
@@ -163,7 +163,7 @@ def page_principale():
     for widget in frame1.winfo_children():
         widget.pack(pady=2, fill="both")
         widget.bind("<Enter>", lambda event: event_change_couleur(event, "#4a4a4a"))
-        widget.bind("<Leave>", lambda event: event_change_couleur(event, "#333333"))
+        widget.bind("<Leave>", lambda event: event_change_couleur(event, "#25292D"))
     bouton1.bind("<Button-1>", lambda event: page_q1())
     bouton2.bind("<Button-1>", lambda event: page_q2())
     bouton3.bind("<Button-1>", lambda event: page_q3())
