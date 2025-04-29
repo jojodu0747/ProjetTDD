@@ -2,7 +2,7 @@ import csv
 from base_dd import adresse
 
 
-def plus_medailles(region="France", limit=10, offset=0):
+def plus_medailles_pur(region="France", limit=10, offset=0):
     noc = ""
     dic_nb_sport = {}
     with open(adresse + "noc_regions.csv", 'r', newline='') as bdd_regions:
@@ -30,6 +30,7 @@ def plus_medailles(region="France", limit=10, offset=0):
                     dic_nb_sport[sport] = 1
 
     dict_items = sorted(dic_nb_sport.items(), key=lambda x: -x[1])  #tri croissant selon la valeur
+    # il faudra faire un dict_item[offset:limit]
     print(f"{'Sport':<20} {'Nombre de médailles':>20}")
     print("-" * 40)
     i = 0
@@ -40,4 +41,4 @@ def plus_medailles(region="France", limit=10, offset=0):
         if i > limit:
             break
 
-plus_medailles()
+plus_medailles_pur()

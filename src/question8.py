@@ -5,10 +5,13 @@
 from base_dd import BDD_EVENTS, BDD_REGIONS
 
 
-def ratio_F_H(group_by_region=False):
+def ratio_F_H(nb_med_min=10, group_by_region=False, summer=True, winter=True):
     BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]  # on filtre les pays inconnus
     BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["NOC"] != "IOA"]
-
+    if not summer:
+        BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["Season"] != "Summer"]
+    if not winter:
+        BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["Season"] != "Winter"]
     # unstack sert à mettre F et M en variables et non en valeurs de Sex:
     if not group_by_region:
         bdd_pays_sexes = BDD_EVENTS_filtre.groupby(["NOC", "Sex"]).size().unstack(fill_value=0)
@@ -21,6 +24,7 @@ def ratio_F_H(group_by_region=False):
         print("Dans ces pays, seules des femmes ont gagné des médailles:", bdd_pays_sexes[(bdd_pays_sexes["M"] == 0)])
         bdd_pays_sexes = bdd_pays_sexes[(bdd_pays_sexes["M"] != 0)]
 
+    bdd_pays_sexes = bdd_pays_sexes[bdd_pays_sexes["M"] + bdd_pays_sexes["F"] >= nb_med_min]
     bdd_pays_sexes["Ratio_F_H"] = bdd_pays_sexes["F"] / bdd_pays_sexes["M"]  # creation ratio
     bdd_pays_sexes.sort_values(by="Ratio_F_H", ascending=False, inplace=True)
 
@@ -40,6 +44,4 @@ def ratio_F_H(group_by_region=False):
 
 ratio_F_H()
 
-# idee 2 : choisir le nombre medailles min (notion de représentativité)
 # idee 3 : periode (f(x1,x2,...,periode=None))
-# idee 4 : f(x1,x2,..,group_by_region=False) avec (region = df.loc[df["NOC"] == valeur_noc, "region"].values)
