@@ -16,7 +16,7 @@ n_doublon = set()
 n_ligne = 2
 header = True
 
-with open(adresse, 'r', newline='') as csvfile:
+with open(adresse + "athlete_events.csv", 'r', newline='') as csvfile:
     spamreader = csv.reader(csvfile)
     for row in spamreader:
         if header is True:
