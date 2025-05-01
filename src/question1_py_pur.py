@@ -1,7 +1,7 @@
 import csv
 from base_dd import adresse
 
-def count_medaille (nom):
+def count_medaille(nom):
     medal_count = 0
     with open(adresse + "athlete_events.csv", 'r', newline='') as bdd_athlete:
         spamreader = csv.reader(bdd_athlete)
