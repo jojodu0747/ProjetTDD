@@ -32,10 +32,10 @@ def plus_medailles_pur(region="France", limit=10, offset=0, years=None):
                     dic_nb_sport[sport] = 1
 
     dict_items = sorted(dic_nb_sport.items(), key=lambda x: -x[1])  #tri croissant selon la valeur
-    dict_items = dict_items[offset:limit]
+    dict_items = dict_items[offset:offset+limit]
     print(f"{'Sport':<20} {'Nombre de médailles':>20}")
     print("-" * 40)
     for item in dict_items:
         print(f"{item[0]:<20} {item[1]:>20}")
 
-plus_medailles_pur(offset=5)
+plus_medailles_pur()
