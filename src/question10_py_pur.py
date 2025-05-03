@@ -38,4 +38,4 @@ def plus_medailles_pur(region="France", limit=10, offset=0, years=None):
     for item in dict_items:
         print(f"{item[0]:<20} {item[1]:>20}")
 
-plus_medailles_pur()
+plus_medailles_pur(region="Latvia", limit=30)

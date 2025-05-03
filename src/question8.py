@@ -5,15 +5,14 @@
 from base_dd import BDD_EVENTS, BDD_REGIONS
 
 
-def ratio_F_H(increasing=True, offset=0, limit=10, nb_med_min=0,
+def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
               years=None, group_by_region=False):
-    BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]  # on filtre les pays
-    # inconnus
+    BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]
     BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["NOC"] != "IOA"]
     if years is not None:
         BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["Year"].isin(years)]
-    # unstack sert à mettre F et M en variables et non en valeurs de Sex:
     if not group_by_region:
+        # unstack sert à mettre F et M en variables et non en valeurs de Sex:
         bdd_pays_sexes = BDD_EVENTS_filtre.groupby(["NOC", "Sex"]).size().unstack(
             fill_value=0)
         bdd_pays_sexes = bdd_pays_sexes.merge(BDD_REGIONS[['NOC', 'region',
@@ -30,10 +29,9 @@ def ratio_F_H(increasing=True, offset=0, limit=10, nb_med_min=0,
 
     bdd_pays_sexes = bdd_pays_sexes[
         bdd_pays_sexes["M"] + bdd_pays_sexes["F"] >= nb_med_min]
-    # cette operation rend float(Inf) si M = 0 :
+    # cette operation rendra float('Inf') si M = 0 :
     bdd_pays_sexes["Ratio_F_H"] = bdd_pays_sexes["F"] / bdd_pays_sexes[
         "M"]  # creation ratio
-    bdd_pays_sexes.sort_values(by="Ratio_F_H", ascending=False, inplace=True)
 
     if group_by_region:
         bdd_pays_sexes.columns.name = None
@@ -50,3 +48,4 @@ def ratio_F_H(increasing=True, offset=0, limit=10, nb_med_min=0,
                                                    ascending=increasing)[offset:limit]
     print(pays_sexes_sorted)
 
+ratio_F_H(increasing=True, group_by_region=True)
