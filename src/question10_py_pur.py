@@ -2,7 +2,7 @@ import csv
 from base_dd import adresse
 
 
-def plus_medailles_pur(region="France", limit=10, offset=0):
+def plus_medailles_pur(region="France", limit=10, offset=0, years=None):
     noc = ""
     dic_nb_sport = {}
     with open(adresse + "noc_regions.csv", 'r', newline='') as bdd_regions:
@@ -21,8 +21,10 @@ def plus_medailles_pur(region="France", limit=10, offset=0):
         idx_NOC = header.index('NOC')  #indices de ces variables dans athlete_event
         idx_medal = header.index('Medal')
         idx_sport = header.index('Sport')
+        idx_year = header.index('Year')
         for row in spamreader:  #on parcourt la bdd, row est un individu
-            if row[idx_medal] != 'NA' and row[idx_NOC] == noc:
+            if row[idx_medal] != 'NA' and row[idx_NOC] == noc \
+                                      and (years is None or row[idx_year] in years):
                 sport = row[idx_sport]
                 if sport in dic_nb_sport:
                     dic_nb_sport[sport] += 1

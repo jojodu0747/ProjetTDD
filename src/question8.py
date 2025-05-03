@@ -5,20 +5,25 @@
 from base_dd import BDD_EVENTS, BDD_REGIONS
 
 
-def ratio_F_H(increasing=True, offset=0, limit=10, nb_med_min=0, group_by_region=False):
+def ratio_F_H(increasing=True, offset=0, limit=10, nb_med_min=0,
+              years=None, group_by_region=False):
     BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]  # on filtre les pays
     # inconnus
     BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["NOC"] != "IOA"]
+    if years is not None:
+        BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["Year"].isin(years)]
     # unstack sert à mettre F et M en variables et non en valeurs de Sex:
     if not group_by_region:
         bdd_pays_sexes = BDD_EVENTS_filtre.groupby(["NOC", "Sex"]).size().unstack(
             fill_value=0)
         bdd_pays_sexes = bdd_pays_sexes.merge(BDD_REGIONS[['NOC', 'region',
-                                                           'notes']], on='NOC',
+                                                           'notes']],
+                                              on='NOC',
                                               how='left')
     else:
         bdd_pays_sexes = BDD_EVENTS_filtre.merge(BDD_REGIONS[['NOC', 'region',
-                                                              'notes']], on='NOC',
+                                                              'notes']],
+                                                 on='NOC',
                                                  how='left')
         bdd_pays_sexes = bdd_pays_sexes.groupby(["region", "Sex"]).size().unstack(
             fill_value=0)
@@ -45,7 +50,3 @@ def ratio_F_H(increasing=True, offset=0, limit=10, nb_med_min=0, group_by_region
                                                    ascending=increasing)[offset:limit]
     print(pays_sexes_sorted)
 
-
-ratio_F_H(group_by_region=True, increasing=False)
-
-# idee 3 : periode (f(x1,x2,...,periode=None))
