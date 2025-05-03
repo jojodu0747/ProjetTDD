@@ -45,7 +45,8 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
 
     bdd_pays_sexes.rename(columns={'region': 'Pays'}, inplace=True)
     pays_sexes_sorted = bdd_pays_sexes.sort_values(by="Ratio_F_H",
-                                                   ascending=increasing)[offset:limit]
+                                                   ascending=increasing)[
+                                                    offset:offset+limit]
     print(pays_sexes_sorted)
 
 ratio_F_H(increasing=True, group_by_region=True)
