@@ -30,6 +30,8 @@ def plus_medailles_pur(region="France", limit=10, offset=0, years=None,
         Une liste de tuples (nom du sport, nombre de médailles), triée par le
         nombre de médailles selon le paramètre increasing.
     """
+    if not isinstance(years, list) or not all(isinstance(y, int) for y in years):
+        raise TypeError("Le paramètre 'years' doit être une liste d'entiers.")
     noc = ""
     dic_nb_sport = {}
     with open(adresse + "noc_regions.csv", 'r', newline='') as bdd_regions:

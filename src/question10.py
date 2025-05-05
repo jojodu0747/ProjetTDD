@@ -28,14 +28,21 @@ def plus_medailles(region="France", limit=10, offset=0, years=None, increasing=F
         Un DataFrame contenant les colonnes nom du sport et nombre de médailles,
         trié par le nombre de médailles selon le paramètre increasing.
     """
+    if not isinstance(years, list) or not all(isinstance(y, int) for y in years):
+        raise TypeError("Le paramètre 'years' doit être une liste d'entiers.")
+
     noc_values = BDD_REGIONS.loc[BDD_REGIONS["region"] == region, "NOC"].values
     if len(noc_values) == 0:
         raise ValueError(f"Le pays '{region}' n'existe pas dans la base de donnée.")
+
     noc = noc_values[0]
     if years is not None:
         bdd_e = BDD_EVENTS[BDD_EVENTS["Year"].isin(years)]
     else:
         bdd_e = BDD_EVENTS
+    if len(bdd_e) == 0:
+        raise ValueError(f"Pas de données pour {region} pour les années {years}")
+
     med_region = bdd_e[(bdd_e["NOC"] == noc) & (bdd_e["Medal"].notna())]
     nb_med_region = med_region.groupby(["Sport"]).size()
     nb_med_region_sorted = nb_med_region.sort_values(ascending=increasing)[
@@ -44,4 +51,4 @@ def plus_medailles(region="France", limit=10, offset=0, years=None, increasing=F
 
 
 # réponse à la question
-print(plus_medailles())
+print(plus_medailles(years=[2025]))
