@@ -30,12 +30,12 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
     -------
     pandas.DataFrame
         Un DataFrame contenant les colonnes :
-        - "Country" : nom du pays ou de la région,
-        - "Ratio_F_H" : ratio F / M,
-        - "F" : nombre de participantes femmes,
-        - "M" : nombre de participants hommes,
-        - "notes" : (si group_by_region=False) note associée au pays.
-        Résultats triés par ratio_F_H selon le paramètre increasing.
+        - "Country" : nom du pays ou de la région
+        - "Ratio_F_H" : ratio F / M
+        - "F" : nombre de participantes femmes
+        - "M" : nombre de participants hommes
+        - "notes" : note associée au pays (si group_by_region=False)
+        Le DataFrame est trié par ratio_F_H selon le paramètre increasing
     """
 
     BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]
