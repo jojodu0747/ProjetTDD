@@ -4,8 +4,8 @@ from base_dd import BDD_EVENTS, BDD_REGIONS
 def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
               years=None, group_by_region=False):
     """
-    Calcule le ratio de participantes femmes par rapport aux hommes pour chaque pays
-    ou région, en fonction du nombre total de médailles remportées.
+    Calcule le ratio de participantes femmes par rapport aux hommes pour chaque pays en
+    fonction du nombre total de médailles remportées.
 
     Parameters
     ----------
