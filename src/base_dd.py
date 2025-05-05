@@ -37,5 +37,5 @@ with open(adresse + "athlete_events.csv", 'r', newline='') as csvfile:
 del BDD, ID, n_ligne, header
 
 
-#n_doublon correspond à l'ensemble des lignes qui sont des doublons
-#(1 étant la ligne de l'header)
+# n_doublon correspond à l'ensemble des lignes qui sont des doublons
+# (1 étant la ligne de l'header)

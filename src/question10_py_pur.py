@@ -1,6 +1,5 @@
 import csv
-from base_dd import adresse
-
+from base_dd import adresse, n_doublon
 
 def plus_medailles_pur(region="France", limit=10, offset=0, years=None):
     noc = ""
@@ -22,7 +21,12 @@ def plus_medailles_pur(region="France", limit=10, offset=0, years=None):
         idx_medal = header.index('Medal')
         idx_sport = header.index('Sport')
         idx_year = header.index('Year')
+        n_ligne = 2
         for row in spamreader:  #on parcourt la bdd, row est un individu
+            if n_ligne in n_doublon:
+                n_ligne += 1
+                continue
+            n_ligne += 1
             if row[idx_medal] != 'NA' and row[idx_NOC] == noc \
                                       and (years is None or row[idx_year] in years):
                 sport = row[idx_sport]

@@ -15,4 +15,5 @@ def plus_medailles(region="France", limit=10, offset=0, years=None, increasing=F
                            offset:offset+limit]
     print(nb_med_region_sorted)
 
+
 plus_medailles()
