@@ -5,8 +5,8 @@ from base_dd import adresse, n_doublon
 def plus_medailles_pur(region="France", limit=10, offset=0, years=None,
                        increasing=False):
     """
-    Retourne les sports dans lesquels les athlètes d'un pays (region) donné ont
-    remporté le plus de médailles.
+    Retourne les sports dans lesquels il y a le plus d'athlètes médaillés
+    d'un pays (region) donné.
 
     Parameters
     ----------
