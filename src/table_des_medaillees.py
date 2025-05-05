@@ -7,7 +7,8 @@ import matplotlib.pyplot as plt
 
 # création de la fonction qui restreint une table auX sport
 
-# affichage des différents sports (dans la doc et peut être utile dans les condtions de succès de la fonction)
+# affichage des différents sports (dans la doc et peut être utile dans les condtions 
+# de succès de la fonction)
 print(BDD_EVENTS["Sport"].drop_duplicates().tolist())
 print(BDD_EVENTS.columns)
 L = ["a", "b", "c"]
