@@ -42,6 +42,8 @@ def plus_medailles_pur(region="France", limit=10, offset=0, years=None,
             if row[idx_region] == region:  # on trouve le noc correspondant à region
                 noc = row[idx_noc_reg]
                 break
+        if noc == "":
+            raise ValueError(f"Le pays '{region}' n'existe pas dans la base de donnée.")
 
     with open(adresse + "athlete_events.csv", 'r', newline='') as bdd_athlete:
         spamreader = csv.reader(bdd_athlete)
