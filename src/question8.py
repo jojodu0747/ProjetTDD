@@ -1,12 +1,43 @@
-# Identifier les pays qui ont le ratio nombre de médailles
-# gagnées par des femmes sur nombre de médailles gagnées
-# par des hommes le plus haut/le plus bas ?
-
 from base_dd import BDD_EVENTS, BDD_REGIONS
 
 
 def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
               years=None, group_by_region=False):
+    """
+    Calcule le ratio de participantes femmes par rapport aux hommes pour chaque pays
+    ou région, en fonction du nombre total de médailles remportées.
+
+    Parameters
+    ----------
+    increasing : bool
+        Si True, trie les résultats par ratio croissant. Sinon, décroissant.
+        Par défaut False.
+    limit : int
+        Nombre maximal de résultats à retourner. Par défaut 10.
+    offset : int
+        Décalage dans la liste triée des résultats. Par défaut 0.
+    nb_med_min : int
+        Nombre minimum de médailles requise (femmes et hommes) pour être inclus
+        dans le classement. Par défaut 10.
+    years : list[int] or None
+        Liste d’années à prendre en compte.
+        Si None, toutes les années sont prises en compte. Par défaut None.
+    group_by_region : bool
+        Si True, regroupe les résultats par region (pays actuel) au lieu de par NOC.
+        Par défaut False.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Un DataFrame contenant les colonnes :
+        - "Country" : nom du pays ou de la région,
+        - "Ratio_F_H" : ratio F / M,
+        - "F" : nombre de participantes femmes,
+        - "M" : nombre de participants hommes,
+        - "notes" : (si group_by_region=False) note associée au pays.
+        Résultats triés par ratio_F_H selon le paramètre increasing.
+    """
+
     BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]
     BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["NOC"] != "IOA"]
     if years is not None:
@@ -47,6 +78,9 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
     pays_sexes_sorted = bdd_pays_sexes.sort_values(by="Ratio_F_H",
                                                    ascending=increasing)[
                                                     offset:offset+limit]
-    print(pays_sexes_sorted)
+    return pays_sexes_sorted
 
-ratio_F_H()
+
+# réponses à la question
+print(ratio_F_H())
+print(ratio_F_H(increasing=True))

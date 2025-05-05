@@ -4,6 +4,32 @@ from base_dd import adresse, n_doublon
 
 def plus_medailles_pur(region="France", limit=10, offset=0, years=None,
                        increasing=False):
+    """
+    Retourne les sports dans lesquels les athlètes d'un pays (region) donné ont
+    remporté le plus de médailles.
+
+    Parameters
+    ----------
+    region : str
+        Nom de la région pour laquelle on souhaite compter les médailles.
+        Par défaut "France".
+    limit : int
+        Nombre maximal de résultats à retourner. Par défaut 10.
+    offset : int
+        Décalage dans la liste triée des sports. Par défaut 0.
+    years : list[int] or None
+        Liste d'années à filtrer.
+        Si None, toutes les années sont prises en compte. Par défaut None.
+    increasing : bool
+        Si True, trie les sports par nombre croissant de médailles
+        Sinon, décroissant. Par défaut False.
+
+    Returns
+    -------
+    list[tuple]
+        Une liste de tuples (nom du sport, nombre de médailles), triée par le
+        nombre de médailles selon le paramètre increasing.
+    """
     noc = ""
     dic_nb_sport = {}
     with open(adresse + "noc_regions.csv", 'r', newline='') as bdd_regions:
@@ -38,14 +64,16 @@ def plus_medailles_pur(region="France", limit=10, offset=0, years=None,
                 else:
                     dic_nb_sport[sport] = 1
     if increasing:
-        dict_items = sorted(dic_nb_sport.items(), key=lambda x: x[1])
+        list_items = sorted(dic_nb_sport.items(), key=lambda x: x[1])
     else:
-        dict_items = sorted(dic_nb_sport.items(), key=lambda x: -x[1])
-    dict_items = dict_items[offset:offset + limit]
-    print(f"{'Sport':<20} {'Nombre de médailles':>20}")
-    print("-" * 40)
-    for item in dict_items:
-        print(f"{item[0]:<20} {item[1]:>20}")
+        list_items = sorted(dic_nb_sport.items(), key=lambda x: -x[1])
+    list_items = list_items[offset:offset + limit]
+    return list_items
 
 
-plus_medailles_pur(region="Latvia", limit=30)
+# réponse à la question
+rep = plus_medailles_pur()
+print(f"{'Sport':<20} {'Nombre de médailles':>20}")
+print("-" * 40)
+for item in rep:
+    print(f"{item[0]:<20} {item[1]:>20}")
