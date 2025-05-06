@@ -42,8 +42,9 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
     BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["NOC"] != "IOA"]
     if years is not None:
         BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["Year"].isin(years)]
+    if len(BDD_EVENTS_filtre) == 0:
+        raise ValueError(f"Pas de données pour les années {years}.")
     if not group_by_region:
-        # unstack sert à mettre F et M en variables et non en valeurs de Sex:
         bdd_pays_sexes = BDD_EVENTS_filtre.groupby(["NOC", "Sex"]).size().unstack(
             fill_value=0)
         bdd_pays_sexes = bdd_pays_sexes.merge(BDD_REGIONS[['NOC', 'region',
@@ -62,7 +63,7 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
         bdd_pays_sexes["M"] + bdd_pays_sexes["F"] >= nb_med_min]
     # cette operation rendra float('Inf') si M = 0 :
     bdd_pays_sexes["Ratio_F_H"] = bdd_pays_sexes["F"] / bdd_pays_sexes[
-        "M"]  # creation ratio
+        "M"]
 
     if group_by_region:
         bdd_pays_sexes.columns.name = None

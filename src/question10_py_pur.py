@@ -2,17 +2,17 @@ import csv
 from base_dd import adresse, n_doublon
 
 
-def plus_medailles_pur(region="France", limit=10, offset=0, years=None,
+def plus_medailles_pur(noc="FRA", limit=10, offset=0, years=None,
                        increasing=False):
     """
-    Retourne les sports dans lesquels il y a le plus d'athlètes médaillés
+    Retourne un classement des sports dans lesquels il y a le plus d'athlètes médaillés
     d'un pays (region) donné.
 
     Parameters
     ----------
-    region : str
-        Nom de la région pour laquelle on souhaite compter les médailles.
-        Par défaut "France".
+    noc : str
+        NOC de la région pour laquelle on souhaite compter les médailles.
+        Par défaut "FRA".
     limit : int
         Nombre maximal de résultats à retourner. Par défaut 10.
     offset : int
@@ -30,21 +30,27 @@ def plus_medailles_pur(region="France", limit=10, offset=0, years=None,
         Une liste de tuples (nom du sport, nombre de médailles), triée par le
         nombre de médailles selon le paramètre increasing.
     """
-    if not isinstance(years, list) or not all(isinstance(y, int) for y in years):
-        raise TypeError("Le paramètre 'years' doit être une liste d'entiers.")
-    noc = ""
+    if (not isinstance(years, list) or not all(isinstance(y, int) for y in years)) and \
+            years is not None:
+        raise TypeError("Le paramètre 'years' doit être une liste d'entiers (ou None).")
     dic_nb_sport = {}
+
     with open(adresse + "noc_regions.csv", 'r', newline='') as bdd_regions:
         sprd_reg = csv.reader(bdd_regions)
         header_reg = next(sprd_reg)
         idx_noc_reg = header_reg.index('NOC')
         idx_region = header_reg.index('region')
+        idx_notes = header_reg.index('notes')
+        region = ""
         for row in sprd_reg:
-            if row[idx_region] == region:
-                noc = row[idx_noc_reg]
+            if row[idx_noc_reg] == noc and len(row[idx_notes]) == 0:
+                region = row[idx_region]
                 break
-        if noc == "":
-            raise ValueError(f"Le pays '{region}' n'existe pas dans la base de donnée.")
+            elif row[idx_noc_reg] == noc:
+                region = row[idx_notes]
+                break
+        if region == "":
+            raise ValueError(f"Le NOC '{noc}' n'existe pas dans la base de donnée.")
 
     with open(adresse + "athlete_events.csv", 'r', newline='') as bdd_athlete:
         spamreader = csv.reader(bdd_athlete)
@@ -66,6 +72,8 @@ def plus_medailles_pur(region="France", limit=10, offset=0, years=None,
                     dic_nb_sport[sport] += 1
                 else:
                     dic_nb_sport[sport] = 1
+    if len(dic_nb_sport) == 0:
+        raise ValueError(f"Pas de médaillés pour {region} pour les années {years}")
     if increasing:
         list_items = sorted(dic_nb_sport.items(), key=lambda x: x[1])
     else:
