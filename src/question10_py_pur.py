@@ -73,7 +73,8 @@ def plus_medailles_pur(noc="FRA", limit=10, offset=0, years=None,
                 else:
                     dic_nb_sport[sport] = 1
     if len(dic_nb_sport) == 0:
-        raise ValueError(f"Pas de médaillés pour {region} pour les années {years}")
+        raise ValueError(f"Pas de médaillés pour {region}({noc}) pour les années"
+                         f" {years}")
     if increasing:
         list_items = sorted(dic_nb_sport.items(), key=lambda x: x[1])
     else:

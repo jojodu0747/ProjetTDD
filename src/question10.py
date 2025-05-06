@@ -42,7 +42,8 @@ def plus_medailles(noc="FRA", limit=10, offset=0, years=None, increasing=False):
     else:
         bdd_e = BDD_EVENTS
     if len(bdd_e) == 0:
-        raise ValueError(f"Pas de médaillés pour {region} pour les années {years}")
+        raise ValueError(f"Pas de médaillés pour {region}({noc}) pour les année"
+                         f"s {years}")
 
     med_region = bdd_e[(bdd_e["NOC"] == noc) & (bdd_e["Medal"].notna())]
     nb_med_region = med_region.groupby(["Sport"]).size()

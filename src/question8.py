@@ -30,6 +30,7 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
     -------
     pandas.DataFrame
         Un DataFrame contenant les colonnes :
+        - "NOC" : noc du pays ou de la région
         - "Country" : nom du pays ou de la région
         - "Ratio_F_H" : ratio F / M
         - "F" : nombre de participantes femmes
@@ -74,9 +75,8 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
         bdd_pays_sexes = bdd_pays_sexes.reindex(["region", "Ratio_F_H", "F", "M"],
                                                 axis=1)
     else:
-        bdd_pays_sexes.drop(columns=['NOC'], inplace=True)
         bdd_pays_sexes = bdd_pays_sexes.reindex(
-            ["region", "notes", "Ratio_F_H", "F", "M"], axis=1)
+            ["NOC", "region", "notes", "Ratio_F_H", "F", "M"], axis=1)
 
     bdd_pays_sexes.rename(columns={'region': 'Country'}, inplace=True)
     pays_sexes_sorted = bdd_pays_sexes.sort_values(by="Ratio_F_H",
