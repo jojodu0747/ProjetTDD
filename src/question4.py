@@ -1,5 +1,6 @@
 from base_dd import BDD_EVENTS
 
+
 def age_moyen_medailles(type_jo, type_medaille, annee_debut, annee_fin):
     """
     Cette fonction répond à la question 4.
@@ -8,13 +9,13 @@ def age_moyen_medailles(type_jo, type_medaille, annee_debut, annee_fin):
 
     parameters
     __________
-    
+
     type_jo : str
         Le type de Jeux Olympiques ("Summer" ou "Winter").
 
     type_medaille : str
         Le type de médaille ("Gold").
-    
+
     annee_debut : int
         L'année de début de la période à considérer.
 
@@ -27,7 +28,7 @@ def age_moyen_medailles(type_jo, type_medaille, annee_debut, annee_fin):
     float
         L'âge moyen des athlètes ayant remporté une médaille d'or
         lors des Jeux Olympiques spécifiés.
-        
+
     """
     # Filtrer les données en fonction du type de Jeux Olympiques et de la médaille
     BDD_EVENTS_FILTRE = BDD_EVENTS[
