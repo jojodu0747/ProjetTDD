@@ -1,5 +1,7 @@
 import tkinter as tk
 from modalite import REGION, SEX, SPORT, MEDAL, GAMES
+from question2_py_pur import question2_p
+from question2 import question2
 
 # Constantes
 COULEUR_PRINCIPALE = "#25292D"
@@ -77,31 +79,32 @@ def bouton_retour():
 
 
 def presentation_question(i):
-    label1 = tk.Label(root,
-                      text='Par: ' + AUTEUR[i],
-                      font=("Arial", 17),
-                      bg=COULEUR_PRINCIPALE,
-                      fg=COULEUR_FONT,
-                      padx=10)
-    label1.pack(side="top", anchor="w")
-    label2 = tk.Label(root,
-                      text=QUESTION[i],
-                      font=("Arial", 25),
-                      bg=COULEUR_PRINCIPALE,
-                      fg=COULEUR_FONT,
-                      pady=10,
-                      padx=10,
-                      justify="left")
-    label2.pack(side="top", anchor="w")
+    labelpq1 = tk.Label(
+        root,
+        text='Par: ' + AUTEUR[i],
+        font=("Arial", 17),
+        bg=COULEUR_PRINCIPALE,
+        fg=COULEUR_FONT,
+        padx=10)
+    labelpq1.pack(side="top", anchor="w")
+    labelpq2 = tk.Label(
+        root,
+        text=QUESTION[i],
+        font=("Arial", 25),
+        bg=COULEUR_PRINCIPALE,
+        fg=COULEUR_FONT,
+        pady=10,
+        padx=10,
+        justify="left")
+    labelpq2.pack(side="top", anchor="w")
 
 
 def alterne(param, i):
     param[i] = not param[i]
-    print(param)
 
 
 def python_pur(param):
-    checkbox = tk.Checkbutton(
+    checkboxpp = tk.Checkbutton(
         root,
         text='Python Pur',
         command=lambda: alterne(param, 0),
@@ -112,11 +115,11 @@ def python_pur(param):
         pady=10,
         anchor='w'
         )
-    checkbox.pack(anchor='w')
+    checkboxpp.pack(anchor='w')
 
 
 def personnaliser_p(personnalise, frame):
-    checkbox = tk.Checkbutton(
+    checkboxp = tk.Checkbutton(
         root,
         text='Personnaliser les arguments',
         command=lambda: personnaliser_f(personnalise, frame),
@@ -127,7 +130,7 @@ def personnaliser_p(personnalise, frame):
         pady=10,
         anchor='w'
         )
-    checkbox.pack(anchor='w')
+    checkboxp.pack(anchor='w')
 
 
 def personnaliser_f(personnalise, frame):
@@ -137,6 +140,76 @@ def personnaliser_f(personnalise, frame):
         frame.pack(fill="both")
         frame.update_idletasks()
     personnalise[0] = not personnalise[0]
+
+
+def submit(lb, param, i):
+    select = []
+    for index in lb.curselection():
+        select.insert(index, lb.get(index))
+    param[i] = select
+
+
+def f_listbox(frame, ssframe, text, typesel, liste, param, i):
+
+    ssframe[0] = tk.Frame(frame)
+    ssframe[0].pack(side='left', expand=True)
+    ssframe[1] = tk.Label(
+        ssframe[0],
+        text=text,
+        font=('Arial', 20))
+    ssframe[1].pack()
+    ssframe[2] = tk.Listbox(ssframe[0], font=('Arial', 20), selectmode=typesel)
+    for x in liste:
+        ssframe[2].insert(tk.END, x)
+    ssframe[2].pack()
+    ssframe[3] = tk.Button(
+        ssframe[0], text="submit", font=('Arial', 20), command=lambda: submit(
+            ssframe[2], param, i))
+    ssframe[3].pack()
+
+
+def f_checkbox(frame, ssframe, text, param, i):
+    ssframe[0] = tk.Frame(frame)
+    ssframe[0].pack(side='left', expand=True)
+    ssframe[1] = tk.Checkbutton(
+        ssframe[0],
+        text=text,
+        command=lambda: alterne(param, i),
+        font=('Arial', 20),
+        fg=COULEUR_FONT,
+        bg=COULEUR_PRINCIPALE,
+        padx=25,
+        pady=10,
+        anchor='w'
+        )
+    ssframe[1].pack()
+
+
+def executer(fonction, person, param, res):
+    bouton_retour = tk.Label(
+        root,
+        text="Executer",
+        bg=COULEUR_PRINCIPALE,
+        fg=COULEUR_FONT,
+        font=("Arial", 20),
+        anchor="w",
+        height=2,
+        borderwidth=3,
+        relief="solid",
+        padx=5,
+        pady=5)
+    bouton_retour.pack(side="left", anchor="n", pady=5, padx=5)
+    bouton_retour.bind("<Enter>",
+                       lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
+    bouton_retour.bind("<Leave>",
+                       lambda event: event_change_couleur(event, COULEUR_PRINCIPALE))
+    bouton_retour.bind("<Button-1>",
+                       lambda event: applique(fonction, person, param, res))
+
+
+def applique(fonction, person, param, res):
+    res[0] = fonction[param[int(person[0])][0]](*param[int(person[0])][1:])
+    print(res[0])
 
 
 # Définition des pages
@@ -207,16 +280,22 @@ def page_q2():
     bouton_retour()
     presentation_question(1)
     personnalise = [False]
-    param_d = [False, "2016 Summer", MEDAL, False]
+    param_d = [False, ["2016 Summer"], MEDAL, False]
     param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [question2, question2_p]
+    res = [None]
     python_pur(param)
     framep = tk.Frame(
-        root, bg=COULEUR_SECONDAIRE, padx=5, pady=10, borderwidth=3, relief="solid")
-
-
+        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+    framep1 = [None, None, None, None]
+    framep2 = [None, None, None, None]
+    framep3 = [None, None]
+    f_listbox(framep, framep1, "Choix des sessions", "multiple", GAMES, param, 1)
+    f_listbox(framep, framep2, "Choix des médails", "multiple", MEDAL, param, 2)
+    f_checkbox(framep, framep3, "Sessions combiné", param, 3)
     personnaliser_p(personnalise, framep)
-
-
+    executer(fonction, personnalise, l_param, res)
 
 
 def page_q3():

@@ -76,7 +76,7 @@ def question2_p(liste_sessions, type_medaille, combine):
             elif res_somme[noc] > res_max[1] or (res_somme[noc] == res_max[1] and
                                                  noc < res_max[0]):
                 res_max = (noc, res_somme[noc])
-        res = (res_min, res_max)
+        res = [(res_min, res_max)]
     else:
         res_min = {i: [] for i in liste_sessions}
         res_max = {i: [] for i in liste_sessions}

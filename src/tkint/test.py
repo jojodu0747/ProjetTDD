@@ -1,33 +1,28 @@
 import tkinter as tk
 
-def on_enter(event):
-    event.widget.config(bg="#1E90FF", cursor="hand1")  # couleur hover + curseur main
-
-def on_leave(event):
-    event.widget.config(bg="#4682B4")  # couleur normale
-
-def on_click():
-    print("Bouton cliqué !")
-
+# Création de la fenêtre principale
 root = tk.Tk()
-root.title("Bouton Label stylé")
+root.title("Exemple de Scrollbar")
 
-# Création du "bouton"
-label_button = tk.Label(
-    root,
-    text="OK",
-    bg="#4682B4",          # couleur normale
-    fg="white",
-    font=("Arial", 16, "bold"),
-    width=10,
-    height=2
-)
+# Canvas pour contenir des widgets
+canvas = tk.Canvas(root)
+canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+scrollbar = tk.Scrollbar(root, orient=tk.VERTICAL, command=canvas.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+canvas.configure(yscrollcommand=scrollbar.set)
 
-label_button.pack(padx=20, pady=20)
 
-# Lier les événements
-label_button.bind("<Enter>", on_enter)
-label_button.bind("<Leave>", on_leave)
-label_button.bind("<Button-1>", lambda event: on_click())
+frame = tk.Frame(canvas)
+canvas.create_window((0, 0), window=frame, anchor="nw")
 
+
+# Ajouter du contenu dans le frame
+for i in range(50):  # Exemple avec 50 labels
+    label = tk.Label(frame, text=f"Label {i+1}")
+    label.pack()
+
+frame.update_idletasks()
+canvas.config(scrollregion=canvas.bbox("all"))
+
+# Lancer la boucle principale de l'application
 root.mainloop()
