@@ -1,16 +1,16 @@
 from base_dd import BDD_EVENTS, BDD_REGIONS
 
 
-def plus_medailles(region="France", limit=10, offset=0, years=None, increasing=False):
+def plus_medailles(noc="FRA", limit=10, offset=0, years=None, increasing=False):
     """
-    Retourne les sports dans lesquels il y a le plus d'athlètes médaillés
+    Retourne un classement des sports dans lesquels il y a le plus d'athlètes médaillés
     d'un pays (region) donné.
 
     Parameters
     ----------
-    region : str
-        Nom de la région pour laquelle on souhaite compter les médailles.
-        Par défaut "France".
+    noc : str
+        NOC de la région pour laquelle on souhaite compter les médailles.
+        Par défaut "FRA".
     limit : int
         Nombre maximal de résultats à retourner. Par défaut 10.
     offset : int
@@ -28,20 +28,22 @@ def plus_medailles(region="France", limit=10, offset=0, years=None, increasing=F
         Un DataFrame contenant les colonnes nom du sport et nombre de médailles,
         trié par le nombre de médailles selon le paramètre increasing.
     """
-    if not isinstance(years, list) or not all(isinstance(y, int) for y in years):
+    if (not isinstance(years, list) or not all(isinstance(y, int) for y in years)) \
+            and years is not None:
         raise TypeError("Le paramètre 'years' doit être une liste d'entiers.")
 
-    noc_values = BDD_REGIONS.loc[BDD_REGIONS["region"] == region, "NOC"].values
-    if len(noc_values) == 0:
-        raise ValueError(f"Le pays '{region}' n'existe pas dans la base de donnée.")
+    region_values = BDD_REGIONS.loc[BDD_REGIONS["NOC"] == noc, "region"].values
+    if len(region_values) == 0:
+        raise ValueError(f"Le NOC '{noc}' n'existe pas dans la base de donnée.")
 
-    noc = noc_values[0]
+    region = region_values[0]
     if years is not None:
         bdd_e = BDD_EVENTS[BDD_EVENTS["Year"].isin(years)]
     else:
         bdd_e = BDD_EVENTS
     if len(bdd_e) == 0:
-        raise ValueError(f"Pas de données pour {region} pour les années {years}")
+        raise ValueError(f"Pas de médaillés pour {region}({noc}) pour les année"
+                         f"s {years}")
 
     med_region = bdd_e[(bdd_e["NOC"] == noc) & (bdd_e["Medal"].notna())]
     nb_med_region = med_region.groupby(["Sport"]).size()
@@ -51,4 +53,4 @@ def plus_medailles(region="France", limit=10, offset=0, years=None, increasing=F
 
 
 # réponse à la question
-print(plus_medailles(years=[2025]))
+print(plus_medailles())

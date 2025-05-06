@@ -30,6 +30,7 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
     -------
     pandas.DataFrame
         Un DataFrame contenant les colonnes :
+        - "NOC" : noc du pays ou de la région
         - "Country" : nom du pays ou de la région
         - "Ratio_F_H" : ratio F / M
         - "F" : nombre de participantes femmes
@@ -37,13 +38,17 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
         - "notes" : note associée au pays (si group_by_region=False)
         Le DataFrame est trié par ratio_F_H selon le paramètre increasing
     """
+    if (not isinstance(years, list) or not all(isinstance(y, int) for y in years)) and \
+            years is not None:
+        raise TypeError("Le paramètre 'years' doit être une liste d'entiers (ou None).")
 
     BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]
     BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["NOC"] != "IOA"]
     if years is not None:
         BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["Year"].isin(years)]
+    if len(BDD_EVENTS_filtre) == 0:
+        raise ValueError(f"Pas de données pour les années {years}.")
     if not group_by_region:
-        # unstack sert à mettre F et M en variables et non en valeurs de Sex:
         bdd_pays_sexes = BDD_EVENTS_filtre.groupby(["NOC", "Sex"]).size().unstack(
             fill_value=0)
         bdd_pays_sexes = bdd_pays_sexes.merge(BDD_REGIONS[['NOC', 'region',
@@ -62,7 +67,7 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
         bdd_pays_sexes["M"] + bdd_pays_sexes["F"] >= nb_med_min]
     # cette operation rendra float('Inf') si M = 0 :
     bdd_pays_sexes["Ratio_F_H"] = bdd_pays_sexes["F"] / bdd_pays_sexes[
-        "M"]  # creation ratio
+        "M"]
 
     if group_by_region:
         bdd_pays_sexes.columns.name = None
@@ -70,9 +75,8 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
         bdd_pays_sexes = bdd_pays_sexes.reindex(["region", "Ratio_F_H", "F", "M"],
                                                 axis=1)
     else:
-        bdd_pays_sexes.drop(columns=['NOC'], inplace=True)
         bdd_pays_sexes = bdd_pays_sexes.reindex(
-            ["region", "notes", "Ratio_F_H", "F", "M"], axis=1)
+            ["NOC", "region", "notes", "Ratio_F_H", "F", "M"], axis=1)
 
     bdd_pays_sexes.rename(columns={'region': 'Country'}, inplace=True)
     pays_sexes_sorted = bdd_pays_sexes.sort_values(by="Ratio_F_H",
