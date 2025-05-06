@@ -1,5 +1,6 @@
 import csv
-from base_dd import adresse 
+from base_dd import adresse
+
 
 def moyenne_age_par_sexe():
     with open(adresse + "athlete_events.csv", 'r', newline='') as bdd_athlete:
@@ -35,5 +36,6 @@ def moyenne_age_par_sexe():
                 moyennes[sexe] = None
 
         return moyennes
+
 
 print(moyenne_age_par_sexe())

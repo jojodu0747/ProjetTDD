@@ -3,8 +3,8 @@ from base_dd import BDD_EVENTS
 
 def question2(liste_sessions, type_medaille, combine=False):
     """Cette fonction répond à la question 2.
-    Il donne les bornes inférieur et supérieur du nombre de médailles obtenue 
-    par chaque nation, selon les types de médailles pris en compte, et selon 
+    Il donne les bornes inférieur et supérieur du nombre de médailles obtenue
+    par chaque nation, selon les types de médailles pris en compte, et selon
     les sessions pris en compte.
 
     Parameters
@@ -29,22 +29,21 @@ def question2(liste_sessions, type_medaille, combine=False):
     df = BDD_EVENTS.loc[
         BDD_EVENTS['Medal'].isin(type_medaille)
         & BDD_EVENTS['Games'].isin(liste_sessions),
-        ['ID', 'NOC', 'Games', 'Medal']
+        ['ID', 'NOC', 'Games', 'Event', 'Medal']
         ]
+    ag = df.groupby(['Event', 'Games', 'NOC', 'Medal']).count()
     if combine:
-        ag = df.groupby('NOC')['Medal'].count()
+        ag = ag.groupby(['Games', 'NOC']).count()
+        ag = (ag.groupby('NOC').sum())['ID']
         min = (list(ag.iloc[[ag.argmin()]].index)[0], int(ag.min()))
         max = (list(ag.iloc[[ag.argmax()]].index)[0], int(ag.max()))
         res = [(min, max)]
     else:
+        ag = (ag.groupby(['Games', 'NOC']).count())['ID']
         res = []
         for session in liste_sessions:
-            ag = (df.loc[df['Games']
-                         == session].groupby(['NOC', 'Games'])['Medal'].count())
-            min = (list(ag.iloc[[ag.argmin()]].index)[0][0], int(ag.min()))
-            max = (list(ag.iloc[[ag.argmax()]].index)[0][0], int(ag.max()))
+            ag_s = ag[session]
+            min = (list(ag_s.iloc[[ag_s.argmin()]].index)[0], int(ag_s.min()))
+            max = (list(ag_s.iloc[[ag_s.argmax()]].index)[0], int(ag_s.max()))
             res.append((min, max))
     return res
-
-
-print(question2(["2016 Summer", "2012 Summer"], ["Gold"]))

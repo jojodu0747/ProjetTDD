@@ -1,45 +1,86 @@
-# Identifier les pays qui ont le ratio nombre de médailles
-# gagnées par des femmes sur nombre de médailles gagnées
-# par des hommes le plus haut/le plus bas ?
-
 from base_dd import BDD_EVENTS, BDD_REGIONS
 
 
-def ratio_F_H(group_by_region=False):
-    BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]  # on filtre les pays inconnus
+def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
+              years=None, group_by_region=False):
+    """
+    Calcule le ratio de participantes femmes par rapport aux hommes pour chaque pays en
+    fonction du nombre total de médailles remportées.
+
+    Parameters
+    ----------
+    increasing : bool
+        Si True, trie les résultats par ratio croissant. Sinon, décroissant.
+        Par défaut False.
+    limit : int
+        Nombre maximal de résultats à retourner. Par défaut 10.
+    offset : int
+        Décalage dans la liste triée des résultats. Par défaut 0.
+    nb_med_min : int
+        Nombre minimum de médailles requise (femmes et hommes) pour être inclus
+        dans le classement. Par défaut 10.
+    years : list[int] or None
+        Liste d’années à prendre en compte.
+        Si None, toutes les années sont prises en compte. Par défaut None.
+    group_by_region : bool
+        Si True, regroupe les résultats par region (pays actuel) au lieu de par NOC.
+        Par défaut False.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Un DataFrame contenant les colonnes :
+        - "Country" : nom du pays ou de la région
+        - "Ratio_F_H" : ratio F / M
+        - "F" : nombre de participantes femmes
+        - "M" : nombre de participants hommes
+        - "notes" : note associée au pays (si group_by_region=False)
+        Le DataFrame est trié par ratio_F_H selon le paramètre increasing
+    """
+
+    BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]
     BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["NOC"] != "IOA"]
-
-    # unstack sert à mettre F et M en variables et non en valeurs de Sex:
+    if years is not None:
+        BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["Year"].isin(years)]
     if not group_by_region:
-        bdd_pays_sexes = BDD_EVENTS_filtre.groupby(["NOC", "Sex"]).size().unstack(fill_value=0)
-        bdd_pays_sexes = bdd_pays_sexes.merge(BDD_REGIONS[['NOC', 'region', 'notes']], on='NOC', how='left')
+        # unstack sert à mettre F et M en variables et non en valeurs de Sex:
+        bdd_pays_sexes = BDD_EVENTS_filtre.groupby(["NOC", "Sex"]).size().unstack(
+            fill_value=0)
+        bdd_pays_sexes = bdd_pays_sexes.merge(BDD_REGIONS[['NOC', 'region',
+                                                           'notes']],
+                                              on='NOC',
+                                              how='left')
     else:
-        bdd_pays_sexes = BDD_EVENTS_filtre.merge(BDD_REGIONS[['NOC', 'region', 'notes']], on='NOC', how='left')
-        bdd_pays_sexes = bdd_pays_sexes.groupby(["region", "Sex"]).size().unstack(fill_value=0)
+        bdd_pays_sexes = BDD_EVENTS_filtre.merge(BDD_REGIONS[['NOC', 'region',
+                                                              'notes']],
+                                                 on='NOC',
+                                                 how='left')
+        bdd_pays_sexes = bdd_pays_sexes.groupby(["region", "Sex"]).size().unstack(
+            fill_value=0)
 
-    if len(bdd_pays_sexes[(bdd_pays_sexes["M"] == 0)]) != 0:
-        print("Dans ces pays, seules des femmes ont gagné des médailles:", bdd_pays_sexes[(bdd_pays_sexes["M"] == 0)])
-        bdd_pays_sexes = bdd_pays_sexes[(bdd_pays_sexes["M"] != 0)]
-
-    bdd_pays_sexes["Ratio_F_H"] = bdd_pays_sexes["F"] / bdd_pays_sexes["M"]  # creation ratio
-    bdd_pays_sexes.sort_values(by="Ratio_F_H", ascending=False, inplace=True)
+    bdd_pays_sexes = bdd_pays_sexes[
+        bdd_pays_sexes["M"] + bdd_pays_sexes["F"] >= nb_med_min]
+    # cette operation rendra float('Inf') si M = 0 :
+    bdd_pays_sexes["Ratio_F_H"] = bdd_pays_sexes["F"] / bdd_pays_sexes[
+        "M"]  # creation ratio
 
     if group_by_region:
         bdd_pays_sexes.columns.name = None
         bdd_pays_sexes.reset_index(inplace=True)
-        bdd_pays_sexes = bdd_pays_sexes.reindex(["region", "Ratio_F_H", "F", "M"], axis=1)
+        bdd_pays_sexes = bdd_pays_sexes.reindex(["region", "Ratio_F_H", "F", "M"],
+                                                axis=1)
     else:
         bdd_pays_sexes.drop(columns=['NOC'], inplace=True)
-        bdd_pays_sexes = bdd_pays_sexes.reindex(["region", "notes", "Ratio_F_H", "F", "M"], axis=1)
+        bdd_pays_sexes = bdd_pays_sexes.reindex(
+            ["region", "notes", "Ratio_F_H", "F", "M"], axis=1)
 
-    bdd_pays_sexes.rename(columns={'region': 'Pays'}, inplace=True)
+    bdd_pays_sexes.rename(columns={'region': 'Country'}, inplace=True)
+    pays_sexes_sorted = bdd_pays_sexes.sort_values(by="Ratio_F_H",
+                                                   ascending=increasing)[
+                                                    offset:offset+limit]
+    return pays_sexes_sorted
 
-    print("Ces pays ont le ratio F/H le plus haut : \n", bdd_pays_sexes.head(10))
-    print("Ces pays ont le ratio F/H le plus bas : \n", bdd_pays_sexes.tail(10))
 
-
-ratio_F_H()
-
-# idee 2 : choisir le nombre medailles min (notion de représentativité)
-# idee 3 : periode (f(x1,x2,...,periode=None))
-# idee 4 : f(x1,x2,..,group_by_region=False) avec (region = df.loc[df["NOC"] == valeur_noc, "region"].values)
+# réponses à la question
+print(ratio_F_H())
+print(ratio_F_H(increasing=True))
