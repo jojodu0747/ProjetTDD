@@ -20,6 +20,23 @@ def continent(noc):
 
 # Fonction principale généralisée
 def compter_medailles_par_continent(annee, BDD_EVENTS):
+    """
+    Cette fonction compte le nombre de médailles remportées par continent
+    pour une année donnée dans la base de données des événements olympiques.
+
+    parameters
+    __________
+    annee : int
+        L'année pour laquelle on souhaite compter les médailles.
+    BDD_EVENTS : pandas.DataFrame
+        La base de données des événements olympiques.
+
+    returns
+    _______
+    pandas.Series
+        Une série contenant le nombre de médailles remportées par continent,
+        triée par ordre décroissant.
+    """
     df_year = BDD_EVENTS[BDD_EVENTS["Year"] == annee]
     df_medalists = df_year[df_year["Medal"].notna()]
     df_medalists = df_medalists.copy()
