@@ -32,7 +32,6 @@ QUESTION = [
 AUTEUR = [
     "Joé", "Aziz", "Joé", "Joé", "Aziz", "Eliott", "Eliott", "Louis", "Aziz", "Louis"
 ]
-MEDALS = ['Bronze', 'Silver', 'Gold']
 
 
 # Initialisation

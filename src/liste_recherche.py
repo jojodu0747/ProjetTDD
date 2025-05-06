@@ -1,4 +1,5 @@
 import Levenshtein
+from base_dd import BDD_EVENTS
 
 
 def levenshtein_score(name1, name2):
@@ -7,7 +8,8 @@ def levenshtein_score(name1, name2):
 
 def listerecherche(nom, D=5):
     """
-    Cette fonction recherche les D noms les plus proches d'un nom donné dans la base de données
+    Cette fonction recherche les D noms les plus proches d'un nom donné dans la base de
+    données
     Elle utilise la distance de Levenshtein pour évaluer la similarité entre les noms.
 
     parameters
