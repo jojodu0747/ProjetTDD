@@ -6,15 +6,21 @@ def calculate_grouped_mean(df, filter_column, group_column, target_column):
     Calcule la moyenne d'une colonne (target_column) pour les lignes où
     filter_column n'est pas NaN, groupée par group_column.
 
-    Parameters:
-    - df: DataFrame à analyser
-    - filter_column: colonne sur laquelle appliquer la condition de
-    non-nullité
-    - group_column: colonne utilisée pour le regroupement
-    - target_column: colonne dont on veut la moyenne
-
-    Returns:
-    - Serie pandas avec la moyenne par groupe
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Le DataFrame sur lequel effectuer le calcul.
+    filter_column : str
+        Le nom de la colonne à filtrer (non NaN).
+    group_column : str
+        Le nom de la colonne par laquelle grouper les données.
+    target_column : str
+        Le nom de la colonne pour laquelle calculer la moyenne.
+    
+    returns
+    -------
+    pandas.Series
+        Une série contenant la moyenne de target_column, groupée par group_column.
     """
     filtered_df = df[df[filter_column].notna()]
     grouped_mean = filtered_df.groupby(group_column)[target_column].mean()
