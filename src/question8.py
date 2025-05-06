@@ -37,6 +37,9 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
         - "notes" : note associée au pays (si group_by_region=False)
         Le DataFrame est trié par ratio_F_H selon le paramètre increasing
     """
+    if (not isinstance(years, list) or not all(isinstance(y, int) for y in years)) and \
+            years is not None:
+        raise TypeError("Le paramètre 'years' doit être une liste d'entiers (ou None).")
 
     BDD_EVENTS_filtre = BDD_EVENTS[BDD_EVENTS["NOC"] != "UNK"]
     BDD_EVENTS_filtre = BDD_EVENTS_filtre[BDD_EVENTS_filtre["NOC"] != "IOA"]
