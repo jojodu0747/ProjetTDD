@@ -1,5 +1,6 @@
 import tkinter as tk
-from base_dd import
+
+# Constantes
 COULEUR_PRINCIPALE = "#25292D"
 COULEUR_SECONDAIRE = "#4a4a4a"
 COULEUR_FONT = "#ffffff"
@@ -31,6 +32,7 @@ QUESTION = [
 AUTEUR = [
     "Joé", "Aziz", "Joé", "Joé", "Aziz", "Eliott", "Eliott", "Louis", "Aziz", "Louis"
 ]
+MEDALS = ['Bronze', 'Silver', 'Gold']
 
 
 # Initialisation

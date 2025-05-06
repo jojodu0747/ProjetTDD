@@ -41,6 +41,3 @@ with open(adresse + "athlete_events.csv", 'r', newline='') as csvfile:
             n_ligne += 1
 
 del BDD, ID, n_ligne, header
-
-# Définitions de quelques constantes
-MEDALS = ['Bronze', 'Silver', 'Gold']
