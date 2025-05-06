@@ -1,4 +1,5 @@
 import tkinter as tk
+from modalite import REGION, SEX, SPORT, MEDAL, GAMES
 
 # Constantes
 COULEUR_PRINCIPALE = "#25292D"
@@ -94,19 +95,48 @@ def presentation_question(i):
     label2.pack(side="top", anchor="w")
 
 
-def python_pur():
-    framepyp = tk.Frame(
-        root, bg=COULEUR_SECONDAIRE, padx=5, pady=10, borderwidth=3, relief="solid"
-    )
-    labelpyp = tk.Label(
-        framepyp,
-        text="Python Pur",
-        font=("Arial", 25),
+def alterne(param, i):
+    param[i] = not param[i]
+    print(param)
+
+
+def python_pur(param):
+    checkbox = tk.Checkbutton(
+        root,
+        text='Python Pur',
+        command=lambda: alterne(param, 0),
+        font=('Arial', 20),
+        fg=COULEUR_FONT,
         bg=COULEUR_PRINCIPALE,
-        g=COULEUR_FONT,
+        padx=25,
         pady=10,
-        padx=10
-    )
+        anchor='w'
+        )
+    checkbox.pack(anchor='w')
+
+
+def personnaliser_p(personnalise, frame):
+    checkbox = tk.Checkbutton(
+        root,
+        text='Personnaliser les arguments',
+        command=lambda: personnaliser_f(personnalise, frame),
+        font=('Arial', 20),
+        fg=COULEUR_FONT,
+        bg=COULEUR_PRINCIPALE,
+        padx=25,
+        pady=10,
+        anchor='w'
+        )
+    checkbox.pack(anchor='w')
+
+
+def personnaliser_f(personnalise, frame):
+    if personnalise[0]:
+        frame.pack_forget()
+    else:
+        frame.pack(fill="both")
+        frame.update_idletasks()
+    personnalise[0] = not personnalise[0]
 
 
 # Définition des pages
@@ -176,8 +206,17 @@ def page_q2():
     efface(root)
     bouton_retour()
     presentation_question(1)
-    param_d = []
-    python_pur()
+    personnalise = [False]
+    param_d = [False, "2016 Summer", MEDAL, False]
+    param = param_d.copy()
+    python_pur(param)
+    framep = tk.Frame(
+        root, bg=COULEUR_SECONDAIRE, padx=5, pady=10, borderwidth=3, relief="solid")
+
+
+    personnaliser_p(personnalise, framep)
+
+
 
 
 def page_q3():
