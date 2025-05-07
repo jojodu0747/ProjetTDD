@@ -204,6 +204,41 @@ def f_listbox(frame, ssframe, text, typesel, liste, param, i, fontsize,
     ssframe[3].pack()
 
 
+def f_joueur(frame, ssframe, text, param, i):
+    ssframe[0] = tk.Frame(frame)
+    ssframe[1] = tk.Label(
+        ssframe[0],
+        text=text,
+        font=('Arial', 20))
+    ssframe[2] = tk.Entry(
+        ssframe[0],
+        font=('Arial', 20),
+        bg='#111111',
+        fg='#00FF00',
+        width=50
+    )
+    ssframe[3] = tk.Button(ssframe[0], text="chercher",
+                           command=lambda: j_submit(ssframe[2], ssframe[4]))
+    ssframe[4] = tk.Listbox(ssframe[0], font=('Arial', 20),
+                            selectmode="single", width=50, height=5)
+    ssframe[5] = tk.Button(ssframe[0], text="submit",
+                           command=lambda: submit(ssframe[4], param, i, "str"))
+    ssframe[0].pack(side='left', expand=True)
+    ssframe[1].pack()
+    ssframe[2].pack()
+    ssframe[3].pack()
+    ssframe[4].pack()
+    ssframe[5].pack()
+
+
+def j_submit(entry, listbox):
+    listbox.delete(0, tk.END)
+    nom = entry.get()
+    liste = listerecherche(nom)
+    for name in liste:
+        listbox.insert(tk.END, name)
+
+
 def f_checkbox(frame, ssframe, text, param, i):
     ssframe[0] = tk.Frame(frame)
     ssframe[0].pack(side='left', expand=True)
@@ -356,7 +391,7 @@ def page_q1():
     bouton_retour(frame_b)
     presentation_question(0)
     personnalise = [False]
-    param_d = [False, ]
+    param_d = [False, "Michael Fred Phelps, II"]
     param = param_d.copy()
     l_param = [param_d, param]
     fonction = [count_medaille, count_medaille_pp]
@@ -364,7 +399,8 @@ def page_q1():
     python_pur(l_param)
     framep = tk.Frame(
         root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
-
+    framep1 = [None, None, None, None, None, None]
+    f_joueur(framep, framep1, "Choix du joueur", param, 1)
     personnaliser_p(personnalise, framep)
     executer(frame_b, fonction, personnalise, l_param, res)
 
