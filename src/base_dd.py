@@ -5,6 +5,8 @@ import csv
 # Adresse du dossier contenant la base des données
 adresse = (os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
            + "/donnees_jeux_olympiques/")
+adresse_fichier = (os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+           + "/sauvegarde/")
 
 # Import en pandas et suppresion des doublons
 BDD_EVENTS = pd.read_csv(adresse + "athlete_events.csv")

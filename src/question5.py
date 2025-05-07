@@ -34,11 +34,11 @@ def question5(medaille, annee=None):
     min = df[df["Age"] == df["Age"].min()]
     res = f"{'':<5}|{'Nom':<50}|{'Age':>4}|{'Medal':>10}\n" + "-" * 72 + "\n"
     res += (
-        f"{'max':<5}|{max["Name"].iloc[0][:50]:<50}|"
-        f"{int(max["Age"].iloc[0]):>4}|{max["Medal"].iloc[0]:>10}\n"
+        f"{'max':<5}|{max['Name'].iloc[0][:50]:<50}|"
+        f"{int(max['Age'].iloc[0]):>4}|{max['Medal'].iloc[0]:>10}\n"
         )
     res += (
-        f"{'min':<5}|{min["Name"].iloc[0][:50]:<50}|"
-        f"{int(min["Age"].iloc[0]):>4}|{min["Medal"].iloc[0]:>10}\n"
+        f"{'min':<5}|{min['Name'].iloc[0][:50]:<50}|"
+        f"{int(min['Age'].iloc[0]):>4}|{min['Medal'].iloc[0]:>10}\n"
         )
     return res
