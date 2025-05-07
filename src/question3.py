@@ -1,14 +1,6 @@
 from base_dd import BDD_EVENTS
 from liste_recherche import listerecherche_sport
 
-# création d'une table saut en longueur
-table_saut_longueur = BDD_EVENTS[BDD_EVENTS["Event"] == "Athletics Men's Long Jump"]
-
-# Grouper par nation et compter le nombre de médailles de chacune d'entre elles
-nombre_medailles = table_saut_longueur.groupby("NOC").size()
-# Trier les résultats par ordre décroissant
-classement = nombre_medailles.sort_values(ascending=False)
-
 
 def top_nations_par_sport(sport, annee_debut, annee_fin, D):
     """
@@ -42,9 +34,8 @@ def top_nations_par_sport(sport, annee_debut, annee_fin, D):
     if BDD_EVENTS[BDD_EVENTS["Event"] == sport].empty:
         raise ValueError(
             f"Attention le sport '{sport}' n'a pas été trouvé dans la base de "
-            f"données.  \n"
-            + f"Vouliez-vous rechercher plutôt l'un de ces sports"
-              f" {listerecherche_sport(sport)} ?"
+            f"données.  \n" + f"Vouliez-vous rechercher plutôt l'un de ces sports"
+            f" {listerecherche_sport(sport)} ?"
         )
     table_saut_longueur = BDD_EVENTS[
         (BDD_EVENTS["Event"] == sport)
