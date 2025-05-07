@@ -38,7 +38,7 @@ def evolution_femmes(annee=None):
             dfM.loc[x] = 0
     dfT = round(dfF/(dfF+dfM) * 100, 2)
     res = (
-        f"{'Année':<10}|{'Pourcentage de Femmes':>30}\n" + "-" * 41 + "\n"
+        f"{'Année':<10}|{'Proportion de Femmes':>30}\n" + "-" * 41 + "\n"
     )
     for x in annee:
         res += f"{x:<10}|{dfT.loc[x][0]:>30}\n"
