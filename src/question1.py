@@ -6,7 +6,8 @@ def count_medaille(nom):
     """
     Cette fonction répond à la question 1.
     Elle calcule le nombre total de médailles remportées par un athlète donné.
-    Le nom de l'athlète est passé en paramètre et la fonction renvoie le nombre total de médailles.
+    Le nom de l'athlète est passé en paramètre et la fonction renvoie le nombre
+    total de médailles.
 
     Parameters
     __________
@@ -28,4 +29,3 @@ def count_medaille(nom):
     Rep = BDD_EVENTS[BDD_EVENTS["Name"] == nom]
     res = f"{nom} a remporté {len(Rep.dropna())} médailles.\n"
     return res
-
