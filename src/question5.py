@@ -21,8 +21,8 @@ def question5(medaille, annee=None):
     _______
 
     str
-        Tableau en string donnant les personnes les plus et moin
-        agées ayant eu une médaille
+        Tableau en string donnant les personnes les plus et les moins agées ayant eu
+        une médaille
     """
     if annee is None:
         annee = YEAR

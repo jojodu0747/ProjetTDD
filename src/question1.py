@@ -18,7 +18,7 @@ def count_medaille(nom):
     Returns
     _______
 
-    int
+    str
         Le nombre total de médailles remportées par l'athlète spécifié.
     """
     if BDD_EVENTS[BDD_EVENTS["Name"] == nom].empty:

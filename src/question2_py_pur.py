@@ -25,8 +25,8 @@ def bornes_p(liste_sessions, type_medaille, combine):
     Returns
     _______
 
-    list[tuple[tuple]]
-        La liste des couple ((argmin, min), (argmax, max)) pour chaque session ou pour
+    str
+        La liste des couples ((argmin, min), (argmax, max)) pour chaque session ou pour
         l'ensemble des sessions selon combine.
     """
     med_occ = {i: {j: {} for j in type_medaille} for i in liste_sessions}
