@@ -10,7 +10,7 @@ def bornes_age(medaille, annee=None):
     Parameters
     __________
 
-    medaille list[str]
+    medaille : list[str]
         Liste des medailles prises en compte
 
     annee: list[int] | None
