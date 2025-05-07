@@ -1,5 +1,6 @@
 from base_dd import adresse, n_doublon
 import csv
+from modalite import REGION, NOC
 
 
 def bornes_p(liste_sessions, type_medaille, combine):
@@ -77,6 +78,18 @@ def bornes_p(liste_sessions, type_medaille, combine):
                                                  noc < res_max[0]):
                 res_max = (noc, res_somme[noc])
         res = [(res_min, res_max)]
+        string = (
+            f"{'min/max':^7}|{'Region':<50}|{'Médailles':>9}\n" + "-"*68 + "\n"
+        )
+        string += (
+            f"{'max':^7}|{REGION[NOC.index(res[0][1][0])]:<50}|"
+            f"{res[0][1][1]:>9}\n"
+        )
+        string += (
+            f"{'min':^7}|{REGION[NOC.index(res[0][0][0])]:<50}|"
+            f"{res[0][0][1]:>9}\n"
+        )
+        string += "-"*68 + "\n"
     else:
         res_min = {i: [] for i in liste_sessions}
         res_max = {i: [] for i in liste_sessions}
@@ -95,4 +108,17 @@ def bornes_p(liste_sessions, type_medaille, combine):
         res = []
         for s in liste_sessions:
             res.append((tuple(res_min[s]), tuple(res_max[s])))
-    return res
+        string = (
+            f"{'Session':<11}|{'min/max':^7}|{'Region':<50}|{'Médailles':>9}\n" + "-"*80 + "\n"
+        )
+        for i, x in enumerate(res):
+            string += (
+                f"{liste_sessions[i]:<11}|{'max':^7}|{REGION[NOC.index(x[1][0])]:<50}|"
+                f"{x[1][1]:>9}\n"
+            )
+            string += (
+                f"{liste_sessions[i]:<11}|{'min':^7}|{REGION[NOC.index(x[0][0])]:<50}|"
+                f"{x[0][1]:>9}\n"
+            )
+            string += "-"*80 + "\n"
+    return string
