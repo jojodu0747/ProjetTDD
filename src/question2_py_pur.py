@@ -4,7 +4,7 @@ import csv
 
 def question2_p(liste_sessions, type_medaille, combine):
     """Cette fonction répond à la question 2.
-    Il donne les bornes inférieur et supérieur du nombre de médailles obtenue
+    Elle donne les bornes inférieures et supérieures du nombre de médailles obtenues
     par chaque nation, selon les types de médailles pris en compte, et selon
     les sessions pris en compte.
 
