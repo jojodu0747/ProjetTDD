@@ -1,13 +1,14 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from question7 import continent
 from question7 import compter_medailles_par_continent
 from question3 import top_nations_par_sport
 from base_dd import BDD_EVENTS
 
 #Question 1 
 print(top_nations_par_sport("Athletics Men's Long Jump", 1700, 2016, 5))
-# print(top_nations_par_sport("Athletics men's Jump", 90, 2300, 5))
+#print(top_nations_par_sport("Athletics men's Jump", 90, 2300, 5))
+
+#Question 7
 
 # Obtenir la liste des années disponibles
 annees = sorted(BDD_EVENTS["Year"].dropna().unique())
