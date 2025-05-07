@@ -1,10 +1,21 @@
-param_d = [False, "Athletics Men's Long Jump", [1896, 2016], 5]
-param = param_d.copy()
-l_param = [param_d, param]
-def transforme(l_param):
-    l1, l2 = l_param[0], l_param[1]
-    l1a = [*l1[:2], *l1[2], l1[3]]
-    l2a = [*l2[:2], *l2[2], l2[3]]
-    return [l1a, l2a]
+#Pas de diff entre ipad et pad dans le widget
 
-print(transforme(l_param))
+from tkinter import *
+
+root=Tk()
+root.title("t1_6")
+root.grid_columnconfigure(1, minsize=root.winfo_width())
+
+a=Label(root, text="A", bg='red', width=20, height=5)
+a.grid(row=0, column=0, sticky=W+E)
+
+b=Label(root, text="B", bg='lightblue', width=10)
+b.grid(row=2, column=0, sticky=W)
+
+c=Label(root, text="C", bg='lime', width=20, height=5)
+c.grid(row=3, column=0, sticky=W)
+
+d=Label(root, text="D", bg='orange', width=5, height=2)
+d.grid(row=1, column=0, sticky=W)
+
+root.mainloop()

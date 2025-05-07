@@ -19,7 +19,7 @@ def continent(noc):
 
 
 # Fonction principale généralisée
-def compter_medailles_par_continent(annee, BDD_EVENTS):
+def compter_medailles_par_continent(annee, BDD_EVENTS=BDD_EVENTS):
     """
     Cette fonction compte le nombre de médailles remportées par continent
     pour une année donnée dans la base de données des événements olympiques.
@@ -42,6 +42,3 @@ def compter_medailles_par_continent(annee, BDD_EVENTS):
     df_medalists = df_medalists.copy()
     df_medalists["Continent"] = df_medalists["NOC"].apply(continent)
     return df_medalists["Continent"].value_counts()
-
-
-print(compter_medailles_par_continent(2012, BDD_EVENTS))

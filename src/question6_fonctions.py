@@ -26,4 +26,5 @@ def calculate_grouped_mean(
     """
     filtered_df = df[df[filter_column].notna()]
     grouped_mean = filtered_df.groupby(group_column)[target_column].mean()
-    return grouped_mean
+    return {'M': round(float(grouped_mean['M']), 2),
+            'F': round(float(grouped_mean['F']), 2)}

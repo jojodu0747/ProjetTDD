@@ -4,6 +4,9 @@ from question2_py_pur import question2_p
 from question2 import question2
 from question3 import top_nations_par_sport
 from question4 import age_moyen_medailles
+from question6_fonctions import calculate_grouped_mean
+from question6_python_pur import moyenne_age_par_sexe
+from question7_fonctions import compter_medailles_par_continent
 
 # Constantes
 COULEUR_PRINCIPALE = "#25292D"
@@ -60,19 +63,20 @@ def efface(window):
         del widget
 
 
-def bouton_retour():
-    bouton_retour = tk.Label(root,
+def bouton_retour(frame_b):
+    bouton_retour = tk.Label(frame_b,
                              text="Retour",
                              bg=COULEUR_PRINCIPALE,
                              fg=COULEUR_FONT,
                              font=("Arial", 20),
                              anchor="w",
                              height=2,
+                             width=6,
                              borderwidth=3,
                              relief="solid",
                              padx=5,
                              pady=5)
-    bouton_retour.pack(side="left", anchor="n", pady=5, padx=5)
+    bouton_retour.pack(anchor="w", pady=5, padx=5)
     bouton_retour.bind("<Enter>",
                        lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
     bouton_retour.bind("<Leave>",
@@ -106,11 +110,16 @@ def alterne(param, i):
     print(param)
 
 
-def python_pur(param):
+def alterne_pp(l_param):
+    l_param[0][0], l_param[1][0] = not l_param[0][0], not l_param[1][0]
+    print(l_param)
+
+
+def python_pur(l_param):
     checkboxpp = tk.Checkbutton(
         root,
         text='Python Pur',
-        command=lambda: alterne(param, 0),
+        command=lambda: alterne_pp(l_param),
         font=('Arial', 20),
         fg=COULEUR_FONT,
         bg=COULEUR_PRINCIPALE,
@@ -155,6 +164,8 @@ def submit(lb, param, i, type):
             select.insert(index, int(lb.get(index)))
     elif type == "str":
         select = lb.get(lb.curselection()[0])
+    elif type == "int":
+        select = int(lb.get(lb.curselection()[0]))
     param[i] = select
     print(param)
 
@@ -196,9 +207,9 @@ def f_checkbox(frame, ssframe, text, param, i):
     ssframe[1].pack()
 
 
-def executer(fonction, person, param, res, facu=None):
+def executer(frame, fonction, person, param, res, facu=None):
     bouton_retour = tk.Label(
-        root,
+        frame,
         text="Executer",
         bg=COULEUR_PRINCIPALE,
         fg=COULEUR_FONT,
@@ -209,7 +220,7 @@ def executer(fonction, person, param, res, facu=None):
         relief="solid",
         padx=5,
         pady=5)
-    bouton_retour.pack(side="left", anchor="n", pady=5, padx=5)
+    bouton_retour.pack(anchor="w", pady=5, padx=5)
     bouton_retour.bind("<Enter>",
                        lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
     bouton_retour.bind("<Leave>",
@@ -326,13 +337,17 @@ def page_principale():
 
 def page_q1():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(0)
 
 
 def page_q2():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(1)
     personnalise = [False]
     param_d = [False, ["2016 Summer"], MEDAL, False]
@@ -340,7 +355,7 @@ def page_q2():
     l_param = [param_d, param]
     fonction = [question2, question2_p]
     res = [None]
-    python_pur(param)
+    python_pur(l_param)
     framep = tk.Frame(
         root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None]
@@ -350,12 +365,14 @@ def page_q2():
     f_listbox(framep, framep2, "Choix des médails", "multiple", MEDAL, param, 2, 20)
     f_checkbox(framep, framep3, "Sessions combiné", param, 3)
     personnaliser_p(personnalise, framep)
-    executer(fonction, personnalise, l_param, res)
+    executer(frame_b, fonction, personnalise, l_param, res)
 
 
 def page_q3():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(2)
     personnalise = [False]
     param_d = [False, "Athletics Men's Long Jump", [1896, 2016], 5]
@@ -374,12 +391,14 @@ def page_q3():
               "multiple", YEAR, param, 2, 14, 10, "lint")
     f_entry(framep, framep3, "Nombre de nation", param, 3, "int")
     personnaliser_p(personnalise, framep)
-    executer(fonction, personnalise, l_param, res, 3)
+    executer(frame_b, fonction, personnalise, l_param, res, 3)
 
 
 def page_q4():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(3)
     personnalise = [False]
     param_d = [False, "Summer", "Gold", [1896, 2016]]
@@ -399,42 +418,75 @@ def page_q4():
     f_listbox(framep, framep3, "Choix de l'année de début et de fin",
               "multiple", YEAR, param, 3, 14, 10, "lint")
     personnaliser_p(personnalise, framep)
-    executer(fonction, personnalise, l_param, res, 4)
+    executer(frame_b, fonction, personnalise, l_param, res, 4)
 
 
 def page_q5():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(4)
 
 
 def page_q6():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(5)
+    personnalise = [False]
+    param_d = [False]
+    param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [calculate_grouped_mean, moyenne_age_par_sexe]
+    res = [None]
+    python_pur(l_param)
+    executer(frame_b, fonction, personnalise, l_param, res)
 
 
 def page_q7():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(6)
+    personnalise = [False]
+    param_d = [False, 2016]
+    param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [compter_medailles_par_continent]
+    res = [None]
+    framep = tk.Frame(
+        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+    framep1 = [None, None, None, None]
+    f_listbox(framep, framep1, "Choix de l'année'", "single", YEAR, param, 1, 20,
+              type="int")
+    personnaliser_p(personnalise, framep)
+    executer(frame_b, fonction, personnalise, l_param, res)
 
 
 def page_q8():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(7)
 
 
 def page_q9():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(8)
 
 
 def page_q10():
     efface(root)
-    bouton_retour()
+    frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_b.pack(side="left", fill="both")
+    bouton_retour(frame_b)
     presentation_question(9)
 
 
