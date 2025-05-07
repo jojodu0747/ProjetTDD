@@ -6,6 +6,22 @@ from sklearn.linear_model import LogisticRegression
 
 
 def modelerl(Sport=None):
+    """Cette fonction répond à la Partie 2.
+    Il renvoie un modèle de regression linéaire
+
+    Parameters
+    __________
+
+    Sport: lis[str] | None
+        Liste des sports pris en compte dans l'entrainement
+        None = Tout les sports
+
+    Returns
+    _______
+
+    LogisticRegression
+        Un modèle entrainé sur la base de donnée
+    """
     if Sport is None:
         Sport = SPORT
     variable_qanti = ['Age', 'Height', 'Weight']
@@ -20,23 +36,63 @@ def modelerl(Sport=None):
     df = df[BDD_EVENTS['Sport'].isin(Sport)]
     df = df.dropna(axis=0, how='any')
 
-    # Eq
+    # Equilibre
     df = df.copy()
     df_1 = df[df["Medal"] == 1]
     df_0 = df[df["Medal"] == 0]
-    dfa_0_sampled = df_0.sample(n=len(df_1), random_state=42)
-    df = pd.concat([df_1, dfa_0_sampled], axis=0).sample(
+    df_0_sampled = df_0.sample(n=len(df_1), random_state=42)
+    df = pd.concat([df_1, df_0_sampled], axis=0).sample(
         frac=1, random_state=42).reset_index(drop=True)
     X = df.drop(columns='Medal')
     Y = df['Medal']
     Y = np.round(Y).astype(int)
-    YG = Y[df['Medal'] == 1]
-    XG = X[df['Medal'] == 1]
 
-
+    # Apprentissage
     model = LogisticRegression(solver='newton-cg')
     model.fit(X, Y)
 
-    return model.score(X, Y), model.score(XG, YG)
+    return model
 
-print(modelerl(Sport=["Basketball"]))
+
+def prevision(modele, Age, Height, Weight, NOC, Sex):
+    """Cette fonction prédit les résultat de x selon le modèle
+
+    Parameters
+    __________
+
+    modele: LogisticRegression
+
+    Age: int
+
+    Height: int
+
+    Weight: int
+
+    NOC: str
+
+    Sex: str
+
+    Returns
+    _______
+
+    int
+        0 si non medaillé, 1 sinon
+    """
+    x = {"Age": Age,
+         "Height": Height,
+         "Weight": Weight,
+         "NOC": NOC,
+         "Sex": Sex
+         }
+    variable_quali = ['NOC', 'Sex']
+    df = BDD_EVENTS.loc[:, ["Age", "Height", "Weight", "NOC", "Sex"]]
+    x = {"Age": Age,
+         "Height": Height,
+         "Weight": Weight,
+         "NOC": NOC,
+         "Sex": Sex
+         }
+    df = pd.concat([df, pd.DataFrame([x])], ignore_index=True)
+    df = pd.get_dummies(df, columns=variable_quali, drop_first=True, dtype=int)
+    x = df.tail(1)
+    return int(modele.predict(x)[0])
