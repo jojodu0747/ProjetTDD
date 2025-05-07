@@ -2,7 +2,7 @@ from base_dd import adresse, n_doublon
 import csv
 
 
-def question2_p(liste_sessions, type_medaille, combine):
+def bornes_p(liste_sessions, type_medaille, combine):
     """Cette fonction répond à la question 2.
     Elle donne les bornes inférieures et supérieures du nombre de médailles obtenues
     par chaque nation, selon les types de médailles pris en compte, et selon

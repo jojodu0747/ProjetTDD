@@ -1,8 +1,8 @@
 import tkinter as tk
 from base_dd import adresse_fichier
 from modalite import SPORT, SEX, REGION, NOC, MEDAL, GAMES, YEAR, EVENT, SEASON
-from question2_py_pur import question2_p
-from question2 import question2
+from question2_py_pur import bornes_p
+from question2 import bornes
 from question3 import top_nations_par_sport
 from question4 import age_moyen_medailles
 from question6 import calculate_grouped_mean
@@ -582,7 +582,7 @@ def page_q2():
     param_d = [False, ["2016 Summer"], MEDAL, False]
     param = param_d.copy()
     l_param = [param_d, param]
-    fonction = [question2, question2_p]
+    fonction = [bornes, bornes_p]
     res = [None]
     python_pur(l_param)
     framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
