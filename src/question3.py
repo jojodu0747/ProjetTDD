@@ -1,5 +1,4 @@
 from base_dd import BDD_EVENTS
-from modalite import YEAR
 from liste_recherche import listerecherche_sport
 
 # création d'une table saut en longueur

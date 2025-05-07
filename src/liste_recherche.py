@@ -35,10 +35,11 @@ def listerecherche(nom, D=5):
     )
     return meilleurs_noms
 
+
 def listerecherche_sport(sport, D=5):
     """
-    Cette fonction recherche les D sports les plus proches d'un sport donné dans la base de
-    données
+    Cette fonction recherche les D sports les plus proches d'un sport donné dans la
+    base de données
     Elle utilise la distance de Levenshtein pour évaluer la similarité entre les sports.
 
     parameters
