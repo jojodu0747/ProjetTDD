@@ -1,4 +1,5 @@
 from base_dd import BDD_EVENTS
+from modalite import YEAR
 
 # création d'une table saut en longueur
 table_saut_longueur = BDD_EVENTS[BDD_EVENTS["Event"] == "Athletics Men's Long Jump"]

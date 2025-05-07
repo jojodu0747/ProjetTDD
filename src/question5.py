@@ -2,7 +2,7 @@ from base_dd import BDD_EVENTS
 from modalite import YEAR
 
 
-def question5(medaille=['Gold'], annee=None):
+def question5(medaille, annee=None):
     """Cette fonction répond à la question 5.
     Il est donne les personnes la plus et la moin agée ayant une médaille selon une
     période donnée

@@ -36,14 +36,11 @@ QUESTION = [
     " médaillées aux Jeux Olympiques depuis leur création ?",
     "Q7: Quelle est la répartition des médailles par continent"
     " au jeux Olympiques de 2016?.",
-    "Q8: Identifier les pays qui ont le ratio nombre de"
-    " médailles gagnées par des femmes sur nombre de médailles"
-    " gagnées par"
-    "\n des hommes le plus haut/le plus bas?",
+    "Q8: Quels sont les pays qui ont le ratio du nombre de médaillées"
+    " femmes sur le nombre de médaillés hommes le plus haut et le plus bas ? ",
     "Q9: Comment le taux de participation des femmes aux Jeux"
     " Olympiques a-t-elle évolué au fil du temps ?",
-    "Q10: Quel sont les sports où la France a gagné le plus"
-    " de médaille ?"
+    "Q10: Quels sont les sports dans lesquels il y a le plus de médaillés français ?"
         ]
 AUTEUR = [
     "Joé", "Aziz", "Joé", "Joé", "Aziz", "Eliott", "Eliott", "Louis", "Aziz", "Louis"
@@ -343,7 +340,10 @@ def creer_affiche(lab):
         font=("Courier New", 15),
         bg=COULEUR_PRINCIPALE,
         fg=COULEUR_FONT,
-        padx=10,
+        borderwidth=3,
+        relief="solid",
+        padx=5,
+        pady=5,
         justify="left")
     lab[0].pack(anchor="w")
 
