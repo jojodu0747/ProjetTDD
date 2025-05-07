@@ -3,6 +3,22 @@ from modalite import YEAR
 
 
 def question9(annee=None):
+    """Cette fonction répond à la question 9.
+    Il donne le pourcentage de femmes durant les épreuves de JO selon les années
+
+    Parameters
+    __________
+
+    annee: list[int] | None
+        Liste des années prises en compte,
+        si None alors toutes les années sont prises en compte
+
+    Returns
+    _______
+
+    str
+        Tableau en string donnant le taux par année
+    """
     if annee is None:
         annee = YEAR
     dfM = BDD_EVENTS.loc[

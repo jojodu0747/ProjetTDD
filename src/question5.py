@@ -11,17 +11,18 @@ def question5(medaille=['Gold'], annee=None):
     __________
 
     medaille list[str]
-        Liste des medailles prisent en compte
+        Liste des medailles prises en compte
 
     annee: list[int] | None
-        Liste des années prisent en compte
+        Liste des années prises en compte,
+        si None alors toutes les années sont prises en compte
 
     Returns
     _______
 
     str
-        retrourne un tableau en string donnant les personnes les plus et moin
-        agé ayant eu une médaille
+        Tableau en string donnant les personnes les plus et moin
+        agées ayant eu une médaille
     """
     if annee is None:
         annee = YEAR
