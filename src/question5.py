@@ -2,7 +2,7 @@ from base_dd import BDD_EVENTS
 from modalite import YEAR
 
 
-def question5(medaille, annee=None):
+def bornes_age(medaille, annee=None):
     """Cette fonction répond à la question 5.
     Il est donne les personnes les plus et les moins agées ayant une médaille selon une
     période donnée

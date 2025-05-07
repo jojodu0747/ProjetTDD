@@ -14,7 +14,7 @@ from question10_py_pur import plus_medailles_pur
 from question1 import count_medaille
 from question1_py_pur import count_medaille_pp
 from liste_recherche import listerecherche, listerecherche_sport
-from question5 import question5
+from question5 import bornes_age
 from question9 import question9
 from reglog import modelerl, prevision
 
@@ -676,7 +676,7 @@ def page_q5():
     param_d = [False, ["Gold"], None]
     param = param_d.copy()
     l_param = [param_d, param]
-    fonction = [question5]
+    fonction = [bornes_age]
     res = [None]
     framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
