@@ -4,7 +4,7 @@ from base_dd import BDD_EVENTS
 def question2(liste_sessions, type_medaille, combine):
     """Cette fonction répond à la question 2.
     Il donne les bornes inférieures et supérieures du nombre de médailles obtenues
-    par chaque nation, selon les types de médailles pris en compte, et selon les
+    parmi les nations, selon les types de médailles pris en compte, et selon les
     sessions prises en compte.
 
     Parameters
