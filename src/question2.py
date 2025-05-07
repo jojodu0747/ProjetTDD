@@ -48,5 +48,3 @@ def question2(liste_sessions, type_medaille, combine):
             maxi = (list(ag_s.iloc[[ag_s.argmax()]].index)[0], int(ag_s.max()))
             res.append((mini, maxi))
     return res
-
-print(question2())
