@@ -34,4 +34,7 @@ plt.ylabel("Nombre de médailles")
 plt.legend(title="Continent", bbox_to_anchor=(0.99, 1), loc='upper left')
 plt.tight_layout()
 plt.grid(True, linestyle='--', alpha=0.6)
-plt.show()
+#plt.show()
+
+
+print(BDD_EVENTS.sort_values(by="Year").head(10)['Year'])

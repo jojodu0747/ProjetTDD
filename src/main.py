@@ -1,6 +1,6 @@
 import tkinter as tk
 from base_dd import adresse_fichier
-from modalite import SEXE, REGION, NOC, MEDAL, GAMES, YEAR, EVENT, SEASON
+from modalite import SPORT, SEX, REGION, NOC, MEDAL, GAMES, YEAR, EVENT, SEASON
 from question2_py_pur import question2_p
 from question2 import question2
 from question3 import top_nations_par_sport
@@ -16,7 +16,7 @@ from question1_py_pur import count_medaille_pp
 from liste_recherche import listerecherche
 from question5 import question5
 from question9 import question9
-from reglog import modelerl
+from reglog import modelerl, prevision
 
 # Constantes
 COULEUR_PRINCIPALE = "#25292D"
@@ -98,7 +98,7 @@ def bouton_retour(frame_b):
                              relief="solid",
                              padx=5,
                              pady=5)
-    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
+    bouton_retour.pack(pady=5, padx=5, fill="both")
     bouton_retour.bind("<Enter>",
                        lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
     bouton_retour.bind("<Leave>",
@@ -285,7 +285,7 @@ def executer(frame, fonction, person, param, res, facu=None, lab=None):
         relief="solid",
         padx=5,
         pady=5)
-    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
+    bouton_retour.pack(pady=5, padx=5, fill="both")
     bouton_retour.bind("<Enter>",
                        lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
     bouton_retour.bind("<Leave>",
@@ -347,7 +347,10 @@ def f_entry(frame, ssframe, text, param, i, type="str", fontsize=20):
 
 
 def affiche(lab, res):
-    lab[0].config(text="Résultat\n" + str(res[0]))
+    if len(res) == 1:
+        lab[0].config(text="Résultat:\n" + str(res[0]))
+    else:
+        lab[0].config(text="Résultat:\n" + str(res[1]))
 
 
 def creer_affiche(lab):
@@ -378,7 +381,7 @@ def bouton_sauvegarde(frame, param, person, res, i):
             relief="solid",
             padx=5,
             pady=5)
-    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
+    bouton_retour.pack(pady=5, padx=5, fill="both")
     bouton_retour.bind(
         "<Enter>", lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
     bouton_retour.bind(
@@ -399,10 +402,14 @@ def sauvegarde(param, person, res, i):
 
 def p2_entrainer(param, res):
     res[0] = modelerl(param[0])
+    print(param)
 
 
-def p2_executer(param, res):
-    res[1] = prevision(*param[1:])
+def p2_executer(param, res, lab):
+    a = res[:1] + param[1:]
+    res[1] = prevision(*a)
+    affiche(lab, res)
+    print(param)
 
 
 def p2_sauvegarde(param, res):
@@ -437,7 +444,7 @@ def p2_bouton_entrainer(frame, param, res):
         "<Button-1>", lambda event: p2_entrainer(param, res))
 
 
-def p2_bouton_executer(frame, param, res):
+def p2_bouton_executer(frame, param, res, lab):
     bouton_retour = tk.Label(
         frame,
         text="Executer",
@@ -450,13 +457,13 @@ def p2_bouton_executer(frame, param, res):
         relief="solid",
         padx=5,
         pady=5)
-    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
+    bouton_retour.pack(pady=5, padx=5, fill="both")
     bouton_retour.bind("<Enter>",
                        lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
     bouton_retour.bind("<Leave>",
                        lambda event: event_change_couleur(event, COULEUR_PRINCIPALE))
     bouton_retour.bind(
-        "<Button-1>", lambda event: p2_executer(param, res))
+        "<Button-1>", lambda event: p2_executer(param, res, lab))
 
 
 def p2_bouton_sauvegarde(frame, param, res):
@@ -834,32 +841,28 @@ def page_p2():
     frame_b.pack(side="left", fill="both")
     bouton_retour(frame_b)
     presentation_question(7)
-    param = [None, None, None, None, None, None, None]
+    param = [None, None, None, None, None, None]
     res = [None, None]
     frame_e = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     frame_p = tk.Frame(root, bg=COULEUR_PRINCIPALE)
-
-    framep1 = [None, None]
+    framep1 = [None, None, None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None, None, None]
     framep4 = [None, None, None, None]
     framep5 = [None, None, None, None]
-    framep6 = [None, None]
-    framep7 = [None, None]
-    f_checkbox(frame_p, framep1, "Ordre croissant", param, 1)
-    f_entry(frame_p, framep2, "Limit", param, 2, "int", 15)
-    f_entry(frame_p, framep3, "Offset", param, 3, "int", 15)
-    f_entry(frame_p, framep4, "Nombre de médailles requis", param, 4, "int", 15)
-    f_listbox(frame_p, framep5, "Choix des années",
-              "multiple", YEAR, param, 5, 14, 10, "lint")
-    f_checkbox(frame_p, framep6, "Regroupe par région au lieu de NOC", param, 6)
-
+    framep6 = [None, None, None, None]
+    f_listbox(frame_p, framep1, "Choix des Sports", "multiple", SPORT, param, 0, 20)
+    f_entry(frame_p, framep2, "Age", param, 1, "int", 20)
+    f_entry(frame_p, framep3, "Height", param, 2, "int", 20)
+    f_entry(frame_p, framep4, "Weight", param, 3, "int", 20)
+    f_listbox(frame_e, framep5, "Région", "single", REGION, param, 4, 20, 30, "region")
+    f_listbox(frame_p, framep6, "Sexe", "single", SEX, param, 5, 20, type="str")
     frame_e.pack(fill="both")
     frame_p.pack(fill="both")
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     p2_bouton_entrainer(frame_b, param, res)
-    p2_bouton_executer(frame_b, param, res)
+    p2_bouton_executer(frame_b, param, res, lab_affiche)
     p2_bouton_sauvegarde(frame_b, param, res)
 
 
