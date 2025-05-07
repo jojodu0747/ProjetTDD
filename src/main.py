@@ -7,7 +7,7 @@ from question3 import top_nations_par_sport
 from question4 import age_moyen_medailles
 from question6_fonctions import calculate_grouped_mean
 from question6_python_pur import moyenne_age_par_sexe
-from question7_fonctions import compter_medailles_par_continent
+from question7 import compter_medailles_par_continent
 from question8 import ratio_F_H
 from question10 import plus_medailles
 from question10_py_pur import plus_medailles_pur
