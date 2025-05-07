@@ -1,4 +1,5 @@
 from base_dd import BDD_EVENTS
+from modalite import REGION, NOC
 
 
 def bornes(liste_sessions, type_medaille, combine):
@@ -39,6 +40,18 @@ def bornes(liste_sessions, type_medaille, combine):
         mini = (list(ag.iloc[[ag.argmin()]].index)[0], int(ag.min()))
         maxi = (list(ag.iloc[[ag.argmax()]].index)[0], int(ag.max()))
         res = [(mini, maxi)]
+        string = (
+            f"{'min/max':^7}|{'Region':<50}|{'Médailles':>9}\n" + "-"*68 + "\n"
+        )
+        string += (
+            f"{'max':^7}|{REGION[NOC.index(res[0][1][0])]:<50}|"
+            f"{res[0][1][1]:>9}\n"
+        )
+        string += (
+            f"{'min':^7}|{REGION[NOC.index(res[0][0][0])]:<50}|"
+            f"{res[0][0][1]:>9}\n"
+        )
+        string += "-"*68 + "\n"
     else:
         ag = (ag.groupby(['Games', 'NOC']).count())['ID']
         res = []
@@ -47,4 +60,17 @@ def bornes(liste_sessions, type_medaille, combine):
             mini = (list(ag_s.iloc[[ag_s.argmin()]].index)[0], int(ag_s.min()))
             maxi = (list(ag_s.iloc[[ag_s.argmax()]].index)[0], int(ag_s.max()))
             res.append((mini, maxi))
-    return res
+        string = (
+            f"{'Session':<11}|{'min/max':^7}|{'Region':<50}|{'Médailles':>9}\n" + "-"*80 + "\n"
+        )
+        for i, x in enumerate(res):
+            string += (
+                f"{liste_sessions[i]:<11}|{'max':^7}|{REGION[NOC.index(x[1][0])]:<50}|"
+                f"{x[1][1]:>9}\n"
+            )
+            string += (
+                f"{liste_sessions[i]:<11}|{'min':^7}|{REGION[NOC.index(x[0][0])]:<50}|"
+                f"{x[0][1]:>9}\n"
+            )
+            string += "-"*80 + "\n"
+    return string
