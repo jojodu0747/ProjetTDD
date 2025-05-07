@@ -3,6 +3,15 @@ from base_dd import adresse, n_doublon
 
 
 def moyenne_age_par_sexe():
+    """
+    Calcule la moyenne d'une colonne (target_column) pour les lignes où
+    filter_column n'est pas NaN, groupée par group_column.
+
+    returns
+    -------
+    {'M': float, 'F': float}
+        Une série contenant la moyenne de target_column, groupée par group_column.
+    """
     with open(adresse + "athlete_events.csv", 'r', newline='') as bdd_athlete:
         reader = csv.reader(bdd_athlete)
         header = next(reader)
