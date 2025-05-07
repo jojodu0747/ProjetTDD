@@ -1,4 +1,5 @@
 from base_dd import BDD_EVENTS
+from liste_recherche import listerecherche
 
 
 def count_medaille(nom):
@@ -19,6 +20,12 @@ def count_medaille(nom):
     int
         Le nombre total de médailles remportées par l'athlète spécifié.
     """
+    if BDD_EVENTS[BDD_EVENTS["Name"] == nom].empty:
+        raise ValueError(
+            f"Attention le nom '{nom}' n'a pas été trouvé dans la base de données. \n"
+            + f"Vouliez-vous rechercher plutôt l'un de ces noms {listerecherche(nom)} ?"
+        )
     Rep = BDD_EVENTS[BDD_EVENTS["Name"] == nom]
     res = f"{nom} a remporté {len(Rep.dropna())} médailles.\n"
     return res
+
