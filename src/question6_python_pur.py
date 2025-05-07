@@ -1,5 +1,5 @@
 import csv
-from base_dd import adresse
+from base_dd import adresse, n_doublon
 
 
 def moyenne_age_par_sexe():
@@ -14,7 +14,14 @@ def moyenne_age_par_sexe():
         total_ages = {'M': 0.0, 'F': 0.0}
         total_counts = {'M': 0, 'F': 0}
 
+        n = 2
+
         for row in reader:
+
+            if n in n_doublon:
+                n += 1
+                continue
+            n += 1
             medal = row[idx_medal]
             age = row[idx_age]
             sex = row[idx_sex]

@@ -1,5 +1,5 @@
 import tkinter as tk
-from modalite import REGION, SEX, SPORT, MEDAL, GAMES, YEAR, EVENT, SEASON
+from modalite import REGION, NOC, SEX, SPORT, MEDAL, GAMES, YEAR, EVENT, SEASON
 from question2_py_pur import question2_p
 from question2 import question2
 from question3 import top_nations_par_sport
@@ -10,6 +10,9 @@ from question7_fonctions import compter_medailles_par_continent
 from question8 import ratio_F_H
 from question10 import plus_medailles
 from question10_py_pur import plus_medailles_pur
+from question1 import count_medaille
+from question1_py_pur import count_medaille_pp
+from liste_recherche import listerecherche
 
 # Constantes
 COULEUR_PRINCIPALE = "#25292D"
@@ -175,6 +178,8 @@ def submit(lb, param, i, type):
         select = lb.get(lb.curselection()[0])
     elif type == "int":
         select = int(lb.get(lb.curselection()[0]))
+    elif type == "region":
+        select = NOC[lb.curselection()[0]]
     param[i] = select
     print(param)
 
@@ -350,6 +355,18 @@ def page_q1():
     frame_b.pack(side="left", fill="both")
     bouton_retour(frame_b)
     presentation_question(0)
+    personnalise = [False]
+    param_d = [False, ]
+    param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [count_medaille, count_medaille_pp]
+    res = [None]
+    python_pur(l_param)
+    framep = tk.Frame(
+        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+
+    personnaliser_p(personnalise, framep)
+    executer(frame_b, fonction, personnalise, l_param, res)
 
 
 def page_q2():
@@ -521,17 +538,25 @@ def page_q10():
     bouton_retour(frame_b)
     presentation_question(9)
     personnalise = [False]
-    param_d = [False]
+    param_d = [False, "FRA", 10, 0, None, False]
     param = param_d.copy()
     l_param = [param_d, param]
-    fonction = [question2, question2_p]
+    fonction = [plus_medailles, plus_medailles_pur]
     res = [None]
     python_pur(l_param)
     framep = tk.Frame(
         root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
-
-
-
+    framep1 = [None, None, None, None]
+    framep2 = [None, None, None, None]
+    framep3 = [None, None, None, None]
+    framep4 = [None, None, None, None]
+    framep5 = [None, None]
+    f_listbox(framep, framep1, "Région", "single", REGION, param, 1, 14, 30, "region")
+    f_entry(framep, framep2, "Limit", param, 2, "int", 15)
+    f_entry(framep, framep3, "Offset", param, 3, "int", 15)
+    f_listbox(framep, framep4, "Choix des années",
+              "multiple", YEAR, param, 4, 14, 10, "lint")
+    f_checkbox(framep, framep5, "Ordre croissant", param, 5)
     personnaliser_p(personnalise, framep)
     executer(frame_b, fonction, personnalise, l_param, res)
 

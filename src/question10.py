@@ -49,8 +49,8 @@ def plus_medailles(noc="FRA", limit=10, offset=0, years=None, increasing=False):
     nb_med_region = med_region.groupby(["Sport"]).size()
     nb_med_region_sorted = nb_med_region.sort_values(ascending=increasing)[
                            offset:offset+limit]
-    return nb_med_region_sorted.reset_index(name="Nombre de médailles")
-
-
-# réponse à la question
-print(plus_medailles())
+    a = nb_med_region_sorted.reset_index(name="Nombre de médailles")
+    res = f"{'Sport':<20}|{'Nombre de médailles':>20}\n" + "-" * 41 + "\n"
+    for i in range(a.shape[0]):
+        res += f"{a.loc[i][0]:<20}|{a.loc[i][1]:>20}\n"
+    return res

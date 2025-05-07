@@ -32,7 +32,8 @@ notes = list(df['notes'])
 REGION = []
 for i in range(len(noc)):
     if notes[i] == 0:
-        REGION.append(region[i]+", "+noc[i])
+        REGION.append(region[i] + ", " + noc[i])
     else:
-        REGION.append(region[i]+", "+noc[i]+", "+notes[i])
+        REGION.append(region[i] + ", "+noc[i] + ", " + notes[i])
+NOC = noc
 del df, df1, df2, noc, region, notes

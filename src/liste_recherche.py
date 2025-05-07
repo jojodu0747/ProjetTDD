@@ -24,15 +24,13 @@ def listerecherche(nom, D=5):
     list
         Une liste des D noms les plus proches trouvés dans la base de données.
     """
-    BDD_EVENTS["Score"] = BDD_EVENTS["Name"].apply(
+    df = BDD_EVENTS.loc[:, ['Name']]
+    df = df.drop_duplicates(subset="Name")
+    df["Score"] = df["Name"].apply(
         lambda x: Levenshtein.distance(nom, x)
     )
 
     meilleurs_noms = (
-        BDD_EVENTS.sort_values(by="Score")
-        .drop_duplicates(subset="Name")
-        .head(D)["Name"]
-        .tolist()
+        df.sort_values(by="Score").head(D)["Name"].tolist()
     )
-
     return meilleurs_noms
