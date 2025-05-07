@@ -80,7 +80,7 @@ def plus_medailles_pur(noc="FRA", limit=10, offset=0, years=None,
     else:
         list_items = sorted(dic_nb_sport.items(), key=lambda x: -x[1])
     list_items = list_items[offset:offset + limit]
-    res = f"{'Sport':<20}|{'Nombre de médailles':>20}\n" + "-" * 41 + "\n"
+    res = f"{'Sport':<20}|{'Nombre de médaillés':>20}\n" + "-" * 41 + "\n"
     for item in list_items:
         res += f"{item[0]:<20}|{item[1]:>20}\n"
     return res
