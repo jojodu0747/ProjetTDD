@@ -7,10 +7,8 @@ nombre_medailles = table_saut_longueur.groupby("NOC").size()
 # Trier les résultats par ordre décroissant
 classement = nombre_medailles.sort_values(ascending=False)
 
-print(classement[0:5])
 
-
-def top_nations_par_sport(sport, annee_debut, annee_fin, D=5):
+def top_nations_par_sport(sport, annee_debut, annee_fin, D):
     """
     Cette fonction répond à la question 3.
     Elle calcule le nombre total de médailles remportées par chaque nation dans un sport donné
@@ -32,10 +30,12 @@ def top_nations_par_sport(sport, annee_debut, annee_fin, D=5):
     _______
 
     pandas.Series
-        Une série contenant le nombre de médailles remportées par chaque nation dans le sport spécifié,
+        Une série contenant le nombre de médailles remportées par chaque nation dans le
+        sport spécifié,
         triée par ordre décroissant. Seules les D premières nations sont retournées.
     """
-    # Filtrer la base de données pour le sport et les années spécifiés et ne garder que les médailles
+    # Filtrer la base de données pour le sport et les années spécifiés et ne garder
+    # que les médailles
     table_saut_longueur = BDD_EVENTS[
         (BDD_EVENTS["Event"] == sport)
         & BDD_EVENTS["Year"].between(annee_debut, annee_fin)
@@ -45,6 +45,3 @@ def top_nations_par_sport(sport, annee_debut, annee_fin, D=5):
     # Trier les résultats par ordre décroissant
     classement = nombre_medailles.sort_values(ascending=False)
     return classement[0:D]
-
-
-print(top_nations_par_sport("Athletics Men's Long Jump", 1896, 2016, D=5))

@@ -38,6 +38,3 @@ def age_moyen_medailles(type_jo, type_medaille, annee_debut, annee_fin):
 
     # Calculer et retourner l'âge moyen
     return BDD_EVENTS_FILTRE["Age"].mean()
-
-print("Âge moyen des médaillés d'or aux JO d'été :",age_moyen_medailles("Summer", "Gold", 1896, 2016))
-print("Âge moyen des médaillés d'hiver aux JO d'hiver :", age_moyen_medailles("Winter", "Gold", 1896, 2016))

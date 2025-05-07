@@ -1,7 +1,8 @@
 import tkinter as tk
-from modalite import REGION, SEX, SPORT, MEDAL, GAMES
+from modalite import REGION, SEX, SPORT, MEDAL, GAMES, YEAR, EVENT, SEASON
 from question2_py_pur import question2_p
 from question2 import question2
+from question3 import top_nations_par_sport
 
 # Constantes
 COULEUR_PRINCIPALE = "#25292D"
@@ -101,6 +102,7 @@ def presentation_question(i):
 
 def alterne(param, i):
     param[i] = not param[i]
+    print(param)
 
 
 def python_pur(param):
@@ -142,15 +144,22 @@ def personnaliser_f(personnalise, frame):
     personnalise[0] = not personnalise[0]
 
 
-def submit(lb, param, i):
+def submit(lb, param, i, type):
     select = []
-    for index in lb.curselection():
-        select.insert(index, lb.get(index))
+    if type == "lstr":
+        for index in lb.curselection():
+            select.insert(index, lb.get(index))
+    elif type == "lint":
+        for index in lb.curselection():
+            select.insert(index, int(lb.get(index)))
+    elif type == "str":
+        select = lb.get(lb.curselection()[0])
     param[i] = select
+    print(param)
 
 
-def f_listbox(frame, ssframe, text, typesel, liste, param, i):
-
+def f_listbox(frame, ssframe, text, typesel, liste, param, i, fontsize,
+              width, type="lstr"):
     ssframe[0] = tk.Frame(frame)
     ssframe[0].pack(side='left', expand=True)
     ssframe[1] = tk.Label(
@@ -158,13 +167,14 @@ def f_listbox(frame, ssframe, text, typesel, liste, param, i):
         text=text,
         font=('Arial', 20))
     ssframe[1].pack()
-    ssframe[2] = tk.Listbox(ssframe[0], font=('Arial', 20), selectmode=typesel)
+    ssframe[2] = tk.Listbox(ssframe[0], font=('Arial', fontsize),
+                            selectmode=typesel, width=width)
     for x in liste:
         ssframe[2].insert(tk.END, x)
     ssframe[2].pack()
     ssframe[3] = tk.Button(
         ssframe[0], text="submit", font=('Arial', 20), command=lambda: submit(
-            ssframe[2], param, i))
+            ssframe[2], param, i, type))
     ssframe[3].pack()
 
 
@@ -185,7 +195,7 @@ def f_checkbox(frame, ssframe, text, param, i):
     ssframe[1].pack()
 
 
-def executer(fonction, person, param, res):
+def executer(fonction, person, param, res, facu=None):
     bouton_retour = tk.Label(
         root,
         text="Executer",
@@ -204,12 +214,55 @@ def executer(fonction, person, param, res):
     bouton_retour.bind("<Leave>",
                        lambda event: event_change_couleur(event, COULEUR_PRINCIPALE))
     bouton_retour.bind("<Button-1>",
-                       lambda event: applique(fonction, person, param, res))
+                       lambda event: applique(fonction, person, param, res, facu))
 
 
-def applique(fonction, person, param, res):
-    res[0] = fonction[param[int(person[0])][0]](*param[int(person[0])][1:])
+def applique(fonction, person, param, res, facu):
+    if facu is None:
+        res[0] = fonction[param[int(person[0])][0]](*param[int(person[0])][1:])
+    elif facu == 3:
+        l1, l2 = param[0], param[1]
+        l1a = [*l1[:2], *l1[2], l1[3]]
+        l2a = [*l2[:2], *l2[2], l2[3]]
+        paramb = [l1a, l2a]
+        res[0] = fonction[paramb[int(person[0])][0]](*paramb[int(person[0])][1:])
+    elif facu == 4:
+        l1, l2 = param[0], param[1]
+        l1a = [*l1[:3], *l1[3]]
+        l2a = [*l2[:3], *l2[3]]
+        paramb = [l1a, l2a]
+        res[0] = fonction[paramb[int(person[0])][0]](*paramb[int(person[0])][1:])
+    print(param[int(person[0])][1:])
     print(res[0])
+
+
+def e_submit(entry, param, i, type):
+    if type == "int":
+        param[i] = int(entry.get())
+    else:
+        param[i] = entry.get()
+    print(param)
+
+
+def f_entry(frame, ssframe, text, param, i, type="str"):
+    ssframe[0] = tk.Frame(frame)
+    ssframe[1] = tk.Label(
+        ssframe[0],
+        text=text,
+        font=('Arial', 20))
+    ssframe[2] = tk.Entry(
+        ssframe[0],
+        font=('Arial', 20),
+        bg='#111111',
+        fg='#00FF00',
+        width=10
+    )
+    ssframe[3] = tk.Button(ssframe[0], text="submit",
+                           command=lambda: e_submit(ssframe[2], param, i, type))
+    ssframe[0].pack(side='left', expand=True)
+    ssframe[1].pack()
+    ssframe[2].pack(side="left")
+    ssframe[3].pack(side="left")
 
 
 # Définition des pages
@@ -291,8 +344,10 @@ def page_q2():
     framep1 = [None, None, None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None]
-    f_listbox(framep, framep1, "Choix des sessions", "multiple", GAMES, param, 1)
-    f_listbox(framep, framep2, "Choix des médails", "multiple", MEDAL, param, 2)
+    f_listbox(framep, framep1, "Choix des sessions", "multiple", GAMES, param, 1, 20,
+              None)
+    f_listbox(framep, framep2, "Choix des médails", "multiple", MEDAL, param, 2, 20,
+              None)
     f_checkbox(framep, framep3, "Sessions combiné", param, 3)
     personnaliser_p(personnalise, framep)
     executer(fonction, personnalise, l_param, res)
@@ -302,12 +357,43 @@ def page_q3():
     efface(root)
     bouton_retour()
     presentation_question(2)
+    personnalise = [False]
+    param_d = [False, "Athletics Men's Long Jump", [1896, 2016], 5]
+    param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [top_nations_par_sport]
+    res = [None]
+    framep = tk.Frame(
+        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+    framep1 = [None, None, None, None]
+    framep2 = [None, None, None, None]
+    framep3 = [None, None, None, None]
+    f_listbox(framep, framep1, "Choix du sport", "single", EVENT, param, 1, 14, 70,
+              "str")
+    f_listbox(framep, framep2, "Choix de l'année de début et de fin",
+              "multiple", YEAR, param, 2, 14, 10, "lint")
+    f_entry(framep, framep3, "Nombre de nation", param, 3, "int")
+    personnaliser_p(personnalise, framep)
+    executer(fonction, personnalise, l_param, res, 3)
 
 
 def page_q4():
     efface(root)
     bouton_retour()
     presentation_question(3)
+    personnalise = [False]
+    param_d = [False, "Summer", "Gold", [1896, 2016]]
+    param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [top_nations_par_sport]
+    res = [None]
+    framep = tk.Frame(
+        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+
+
+    personnaliser_p(personnalise, framep)
+    executer(fonction, personnalise, l_param, res, 3)
+
 
 
 def page_q5():
