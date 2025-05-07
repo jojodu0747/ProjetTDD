@@ -1,6 +1,6 @@
 import tkinter as tk
 from base_dd import adresse_fichier
-from modalite import SPORT, SEX, REGION, NOC, MEDAL, GAMES, YEAR, EVENT, SEASON
+from modalite import SPORT, SEX, REGION, NOC, MEDAL, GAMES, YEAR, SEASON
 from question2_py_pur import bornes_p
 from question2 import bornes
 from question3 import top_nations_par_sport
