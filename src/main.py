@@ -1,4 +1,5 @@
 import tkinter as tk
+from base_dd import adresse_fichier
 from modalite import REGION, NOC, MEDAL, GAMES, YEAR, EVENT, SEASON
 from question2_py_pur import question2_p
 from question2 import question2
@@ -360,10 +361,10 @@ def creer_affiche(lab):
     lab[0].pack(anchor="w")
 
 
-def bouton_sauvegarde(frame, param, res, i):
+def bouton_sauvegarde(frame, param, person, res, i):
     bouton_retour = tk.Label(
             frame,
-            text="Executer",
+            text="Sauvegarde",
             bg=COULEUR_PRINCIPALE,
             fg=COULEUR_FONT,
             font=("Arial", 20),
@@ -379,13 +380,17 @@ def bouton_sauvegarde(frame, param, res, i):
     bouton_retour.bind(
         "<Leave>", lambda event: event_change_couleur(event, COULEUR_PRINCIPALE))
     bouton_retour.bind(
-        "<Button-1>", lambda event: sauvegarde(param, res, i))
+        "<Button-1>", lambda event: sauvegarde(param, person, res, i))
 
 
-def sauvegarde(param, res, i):
-
-
-
+def sauvegarde(param, person, res, i):
+    with open(adresse_fichier + FICHIER[i],
+              "a",
+              encoding="utf-8") as file:
+        str = f"Python Pur:{param[int(person[0])][0]!s:>69}\n"
+        str += "Argument:\n" + f"{*param[int(person[0])][1:]!s:>80}\n"
+        str += "Résultat:\n" + f"{res[0]!s:>80}\n" + "-"*80 + "\n"
+        file.write(str)
 
 
 # Définition des pages
@@ -469,6 +474,7 @@ def page_q1():
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
     bouton_sauvegarde(frame_b, param, res, 0)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 0)
 
 
 def page_q2():
@@ -498,6 +504,7 @@ def page_q2():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 1)
 
 
 def page_q3():
@@ -528,6 +535,7 @@ def page_q3():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, 3, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 2)
 
 
 def page_q4():
@@ -559,6 +567,7 @@ def page_q4():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, 4, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 3)
 
 
 def page_q5():
@@ -586,6 +595,7 @@ def page_q5():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 4)
 
 
 def page_q6():
@@ -604,6 +614,7 @@ def page_q6():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 5)
 
 
 def page_q7():
@@ -629,6 +640,7 @@ def page_q7():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 6)
 
 
 def page_q8():
@@ -664,6 +676,7 @@ def page_q8():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 7)
 
 
 def page_q9():
@@ -689,6 +702,7 @@ def page_q9():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 8)
 
 
 def page_q10():
@@ -723,6 +737,7 @@ def page_q10():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, l_param, personnalise, res, 9)
 
 
 page_principale()
