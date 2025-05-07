@@ -1,5 +1,5 @@
 import tkinter as tk
-from modalite import REGION, NOC, SEX, SPORT, MEDAL, GAMES, YEAR, EVENT, SEASON
+from modalite import REGION, NOC, MEDAL, GAMES, YEAR, EVENT, SEASON
 from question2_py_pur import question2_p
 from question2 import question2
 from question3 import top_nations_par_sport
@@ -258,7 +258,7 @@ def f_checkbox(frame, ssframe, text, param, i):
     ssframe[1].pack()
 
 
-def executer(frame, fonction, person, param, res, facu=None):
+def executer(frame, fonction, person, param, res, facu=None, lab=None):
     bouton_retour = tk.Label(
         frame,
         text="Executer",
@@ -277,10 +277,10 @@ def executer(frame, fonction, person, param, res, facu=None):
     bouton_retour.bind("<Leave>",
                        lambda event: event_change_couleur(event, COULEUR_PRINCIPALE))
     bouton_retour.bind("<Button-1>",
-                       lambda event: applique(fonction, person, param, res, facu))
+                       lambda event: applique(fonction, person, param, res, facu, lab))
 
 
-def applique(fonction, person, param, res, facu):
+def applique(fonction, person, param, res, facu, lab):
     if facu is None:
         res[0] = fonction[param[int(person[0])][0]](*param[int(person[0])][1:])
     elif facu == 3:
@@ -297,7 +297,10 @@ def applique(fonction, person, param, res, facu):
         paramb = [l1a, l2a]
         print(paramb[int(person[0])][1:])
         res[0] = fonction[paramb[int(person[0])][0]](*paramb[int(person[0])][1:])
-    print(res[0])
+    if lab is None:
+        print(res[0])
+    else:
+        affiche(lab, res)
 
 
 def e_submit(entry, param, i, type):
@@ -327,6 +330,22 @@ def f_entry(frame, ssframe, text, param, i, type="str", fontsize=20):
     ssframe[1].pack()
     ssframe[2].pack(side="left")
     ssframe[3].pack(side="left")
+
+
+def affiche(lab, res):
+    lab[0].config(text=str(res[0]))
+
+
+def creer_affiche(lab):
+    lab[0] = tk.Label(
+        root,
+        text='',
+        font=("Courier New", 15),
+        bg=COULEUR_PRINCIPALE,
+        fg=COULEUR_FONT,
+        padx=10,
+        justify="left")
+    lab[0].pack(anchor="w")
 
 
 # Définition des pages
@@ -399,12 +418,16 @@ def page_q1():
     fonction = [count_medaille, count_medaille_pp]
     res = [None]
     python_pur(l_param)
+    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
-        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None, None, None]
     f_joueur(framep, framep1, "Choix du joueur", param, 1)
     personnaliser_p(personnalise, framep)
-    executer(frame_b, fonction, personnalise, l_param, res)
+    framepp.pack(fill="both")
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
 
 
 def page_q2():
@@ -420,8 +443,9 @@ def page_q2():
     fonction = [question2, question2_p]
     res = [None]
     python_pur(l_param)
+    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
-        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None]
@@ -429,7 +453,10 @@ def page_q2():
     f_listbox(framep, framep2, "Choix des médails", "multiple", MEDAL, param, 2, 20)
     f_checkbox(framep, framep3, "Sessions combiné", param, 3)
     personnaliser_p(personnalise, framep)
-    executer(frame_b, fonction, personnalise, l_param, res)
+    framepp.pack(fill="both")
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
 
 
 def page_q3():
@@ -444,8 +471,9 @@ def page_q3():
     l_param = [param_d, param]
     fonction = [top_nations_par_sport]
     res = [None]
+    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
-        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None, None, None]
@@ -455,7 +483,10 @@ def page_q3():
               "multiple", YEAR, param, 2, 14, 10, "lint")
     f_entry(framep, framep3, "Nombre de nation", param, 3, "int")
     personnaliser_p(personnalise, framep)
-    executer(frame_b, fonction, personnalise, l_param, res, 3)
+    framepp.pack(fill="both")
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, 3, lab=lab_affiche)
 
 
 def page_q4():
@@ -470,8 +501,9 @@ def page_q4():
     l_param = [param_d, param]
     fonction = [age_moyen_medailles]
     res = [None]
+    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
-        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None, None, None]
@@ -482,7 +514,10 @@ def page_q4():
     f_listbox(framep, framep3, "Choix de l'année de début et de fin",
               "multiple", YEAR, param, 3, 14, 10, "lint")
     personnaliser_p(personnalise, framep)
-    executer(frame_b, fonction, personnalise, l_param, res, 4)
+    framepp.pack(fill="both")
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, 4, lab=lab_affiche)
 
 
 def page_q5():
@@ -497,15 +532,19 @@ def page_q5():
     l_param = [param_d, param]
     fonction = [question5]
     res = [None]
+    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
-        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None]
     framep2 = [None, None, None, None]
     f_listbox(framep, framep1, "Choix des médails", "multiple", MEDAL, param, 1, 20)
     f_listbox(framep, framep2, "Choix des années",
               "multiple", YEAR, param, 2, 14, 10, "lint")
     personnaliser_p(personnalise, framep)
-    executer(frame_b, fonction, personnalise, l_param, res)
+    framepp.pack(fill="both")
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
 
 
 def page_q6():
@@ -521,7 +560,9 @@ def page_q6():
     fonction = [calculate_grouped_mean, moyenne_age_par_sexe]
     res = [None]
     python_pur(l_param)
-    executer(frame_b, fonction, personnalise, l_param, res)
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
 
 
 def page_q7():
@@ -536,13 +577,17 @@ def page_q7():
     l_param = [param_d, param]
     fonction = [compter_medailles_par_continent]
     res = [None]
+    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
-        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None]
     f_listbox(framep, framep1, "Choix de l'année'", "single", YEAR, param, 1, 20,
               type="int")
     personnaliser_p(personnalise, framep)
-    executer(frame_b, fonction, personnalise, l_param, res)
+    framepp.pack(fill="both")
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
 
 
 def page_q8():
@@ -557,8 +602,9 @@ def page_q8():
     l_param = [param_d, param]
     fonction = [ratio_F_H]
     res = [None]
+    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
-        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None, None, None]
@@ -573,7 +619,10 @@ def page_q8():
               "multiple", YEAR, param, 5, 14, 10, "lint")
     f_checkbox(framep, framep6, "Regroupe par région au lieu de NOC", param, 6)
     personnaliser_p(personnalise, framep)
-    executer(frame_b, fonction, personnalise, l_param, res)
+    framepp.pack(fill="both")
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
 
 
 def page_q9():
@@ -588,13 +637,17 @@ def page_q9():
     l_param = [param_d, param]
     fonction = [question9]
     res = [None]
+    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
-        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None]
     f_listbox(framep, framep1, "Choix des années",
               "multiple", YEAR, param, 1, 14, 10, "lint")
     personnaliser_p(personnalise, framep)
-    executer(frame_b, fonction, personnalise, l_param, res)
+    framepp.pack(fill="both")
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
 
 
 def page_q10():
@@ -610,8 +663,9 @@ def page_q10():
     fonction = [plus_medailles, plus_medailles_pur]
     res = [None]
     python_pur(l_param)
+    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
-        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None, None, None]
@@ -624,7 +678,10 @@ def page_q10():
               "multiple", YEAR, param, 4, 14, 10, "lint")
     f_checkbox(framep, framep5, "Ordre croissant", param, 5)
     personnaliser_p(personnalise, framep)
-    executer(frame_b, fonction, personnalise, l_param, res)
+    framepp.pack(fill="both")
+    lab_affiche = [None]
+    creer_affiche(lab_affiche)
+    executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
 
 
 page_principale()
