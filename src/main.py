@@ -782,7 +782,9 @@ def page_q9():
     bouton_retour(frame_b)
     presentation_question(8)
     personnalise = [False]
-    param_d = [False, [1896, 1952, 2016]]
+    param_d = [False, [
+        1896, 1904, 1920, 1928, 1936, 1952, 1960, 1972, 1980, 1988, 1992, 1996, 1998,
+        2002, 2004, 2008, 2012, 2016]]
     param = param_d.copy()
     l_param = [param_d, param]
     fonction = [evolution_femmes]
