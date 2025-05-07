@@ -475,7 +475,6 @@ def page_q1():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
-    bouton_sauvegarde(frame_b, param, res, 0)
     bouton_sauvegarde(frame_b, l_param, personnalise, res, 0)
 
 
