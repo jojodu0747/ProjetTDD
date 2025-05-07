@@ -13,6 +13,8 @@ from question10_py_pur import plus_medailles_pur
 from question1 import count_medaille
 from question1_py_pur import count_medaille_pp
 from liste_recherche import listerecherche
+from question5 import question5
+from question9 import question9
 
 # Constantes
 COULEUR_PRINCIPALE = "#25292D"
@@ -489,6 +491,21 @@ def page_q5():
     frame_b.pack(side="left", fill="both")
     bouton_retour(frame_b)
     presentation_question(4)
+    personnalise = [False]
+    param_d = [False, ["Gold"], None]
+    param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [question5]
+    res = [None]
+    framep = tk.Frame(
+        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+    framep1 = [None, None, None, None]
+    framep2 = [None, None, None, None]
+    f_listbox(framep, framep1, "Choix des médails", "multiple", MEDAL, param, 1, 20)
+    f_listbox(framep, framep2, "Choix des années",
+              "multiple", YEAR, param, 2, 14, 10, "lint")
+    personnaliser_p(personnalise, framep)
+    executer(frame_b, fonction, personnalise, l_param, res)
 
 
 def page_q6():
@@ -565,6 +582,19 @@ def page_q9():
     frame_b.pack(side="left", fill="both")
     bouton_retour(frame_b)
     presentation_question(8)
+    personnalise = [False]
+    param_d = [False, [1896, 1952, 2016]]
+    param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [question9]
+    res = [None]
+    framep = tk.Frame(
+        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+    framep1 = [None, None, None, None]
+    f_listbox(framep, framep1, "Choix des années",
+              "multiple", YEAR, param, 1, 14, 10, "lint")
+    personnaliser_p(personnalise, framep)
+    executer(frame_b, fonction, personnalise, l_param, res)
 
 
 def page_q10():

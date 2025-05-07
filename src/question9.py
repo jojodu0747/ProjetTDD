@@ -43,6 +43,3 @@ def question9(annee=None):
     for x in annee:
         res += f"{x:<10}|{dfT.loc[x][0]:>30}\n"
     return res
-
-
-print(question9())
