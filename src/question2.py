@@ -24,7 +24,7 @@ def bornes(liste_sessions, type_medaille, combine):
     Returns
     _______
 
-    list[tuple[tuple]]
+    str
         La liste des couples ((argmin, min), (argmax, max)) pour chaque session ou pour
         l'ensemble des sessions selon combine.
     """
