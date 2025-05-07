@@ -3,7 +3,7 @@ from base_dd import BDD_EVENTS
 
 def question2(liste_sessions, type_medaille, combine):
     """Cette fonction répond à la question 2.
-    Il donne les bornes inférieures et supérieures du nombre de médailles obtenues
+    Elle donne les bornes inférieures et supérieures du nombre de médailles obtenues
     parmi les nations, selon les types de médailles pris en compte, et selon les
     sessions prises en compte.
 
@@ -48,3 +48,5 @@ def question2(liste_sessions, type_medaille, combine):
             maxi = (list(ag_s.iloc[[ag_s.argmax()]].index)[0], int(ag_s.max()))
             res.append((mini, maxi))
     return res
+
+print(question2())
