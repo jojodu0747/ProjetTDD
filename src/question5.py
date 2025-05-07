@@ -4,7 +4,7 @@ from modalite import YEAR
 
 def question5(medaille, annee=None):
     """Cette fonction répond à la question 5.
-    Il est donne les personnes la plus et la moin agée ayant une médaille selon une
+    Il est donne les personnes les plus et les moins agées ayant une médaille selon une
     période donnée
 
     Parameters
