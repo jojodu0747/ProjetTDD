@@ -47,7 +47,7 @@ QUESTION = [
         ]
 AUTEUR = [
     "Joé", "Aziz", "Joé", "Joé", "Aziz", "Eliott", "Eliott", "Louis", "Aziz", "Louis",
-    "Aziz"
+    "Tout le monde, principalement Aziz"
 ]
 FICHIER = [
     "question1.txt",
