@@ -4,7 +4,7 @@ from modalite import YEAR
 
 def question9(annee=None):
     """Cette fonction répond à la question 9.
-    Il donne le pourcentage de femmes durant les épreuves de JO selon les années
+    Elle donne le pourcentage de femmes durant les épreuves de JO selon les années
 
     Parameters
     __________
