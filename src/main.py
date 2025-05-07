@@ -42,6 +42,7 @@ QUESTION = [
     "Q9: Comment le taux de participation des femmes aux Jeux"
     " Olympiques a-t-elle évolué au fil du temps ?",
     "Q10: Quels sont les sports dans lesquels il y a le plus de médaillés français ?"
+    "Modèle ce regression logistique"
         ]
 AUTEUR = [
     "Joé", "Aziz", "Joé", "Joé", "Aziz", "Eliott", "Eliott", "Louis", "Aziz", "Louis"
@@ -56,7 +57,8 @@ FICHIER = [
     "question7.txt",
     "question8.txt",
     "question9.txt",
-    "question10.txt"
+    "question10.txt",
+    "reglog.txt"
 ]
 
 
@@ -388,7 +390,7 @@ def sauvegarde(param, person, res, i):
               "a",
               encoding="utf-8") as file:
         str = f"Python Pur:{param[int(person[0])][0]!s:>69}\n"
-        str += "Argument:\n" + f"{*param[int(person[0])][1:]!s:>80}\n"
+        str += "Argument:\n" + f"{param[int(person[0])][1:]!s:>80}\n"
         str += "Résultat:\n" + f"{res[0]!s:>80}\n" + "-"*80 + "\n"
         file.write(str)
 
