@@ -109,7 +109,8 @@ def bornes_p(liste_sessions, type_medaille, combine):
         for s in liste_sessions:
             res.append((tuple(res_min[s]), tuple(res_max[s])))
         string = (
-            f"{'Session':<11}|{'min/max':^7}|{'Region':<50}|{'Médailles':>9}\n" + "-"*80 + "\n"
+            f"{'Session':<11}|{'min/max':^7}|{'Region':<50}|{'Médailles':>9}\n" +
+            "-"*80 + "\n"
         )
         for i, x in enumerate(res):
             string += (
