@@ -32,7 +32,8 @@ def age_moyen_medailles(type_jo, type_medaille, annee_debut, annee_fin):
     """
     # Filtrer les données en fonction du type de Jeux Olympiques et de la médaille
     BDD_EVENTS_FILTRE = BDD_EVENTS[
-        (BDD_EVENTS["Games"].str.contains(type_jo, case= False)) & (BDD_EVENTS["Medal"] == type_medaille) &
+        (BDD_EVENTS["Games"].str.contains(type_jo, case=False)) &
+        (BDD_EVENTS["Medal"] == type_medaille) &
         (BDD_EVENTS["Year"].between(annee_debut, annee_fin))
     ]
 

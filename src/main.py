@@ -3,6 +3,7 @@ from modalite import REGION, SEX, SPORT, MEDAL, GAMES, YEAR, EVENT, SEASON
 from question2_py_pur import question2_p
 from question2 import question2
 from question3 import top_nations_par_sport
+from question4 import age_moyen_medailles
 
 # Constantes
 COULEUR_PRINCIPALE = "#25292D"
@@ -159,7 +160,7 @@ def submit(lb, param, i, type):
 
 
 def f_listbox(frame, ssframe, text, typesel, liste, param, i, fontsize,
-              width, type="lstr"):
+              width=None, type="lstr"):
     ssframe[0] = tk.Frame(frame)
     ssframe[0].pack(side='left', expand=True)
     ssframe[1] = tk.Label(
@@ -225,14 +226,15 @@ def applique(fonction, person, param, res, facu):
         l1a = [*l1[:2], *l1[2], l1[3]]
         l2a = [*l2[:2], *l2[2], l2[3]]
         paramb = [l1a, l2a]
+        print(paramb[int(person[0])][1:])
         res[0] = fonction[paramb[int(person[0])][0]](*paramb[int(person[0])][1:])
     elif facu == 4:
         l1, l2 = param[0], param[1]
         l1a = [*l1[:3], *l1[3]]
         l2a = [*l2[:3], *l2[3]]
         paramb = [l1a, l2a]
+        print(paramb[int(person[0])][1:])
         res[0] = fonction[paramb[int(person[0])][0]](*paramb[int(person[0])][1:])
-    print(param[int(person[0])][1:])
     print(res[0])
 
 
@@ -344,10 +346,8 @@ def page_q2():
     framep1 = [None, None, None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None]
-    f_listbox(framep, framep1, "Choix des sessions", "multiple", GAMES, param, 1, 20,
-              None)
-    f_listbox(framep, framep2, "Choix des médails", "multiple", MEDAL, param, 2, 20,
-              None)
+    f_listbox(framep, framep1, "Choix des sessions", "multiple", GAMES, param, 1, 20)
+    f_listbox(framep, framep2, "Choix des médails", "multiple", MEDAL, param, 2, 20)
     f_checkbox(framep, framep3, "Sessions combiné", param, 3)
     personnaliser_p(personnalise, framep)
     executer(fonction, personnalise, l_param, res)
@@ -385,15 +385,21 @@ def page_q4():
     param_d = [False, "Summer", "Gold", [1896, 2016]]
     param = param_d.copy()
     l_param = [param_d, param]
-    fonction = [top_nations_par_sport]
+    fonction = [age_moyen_medailles]
     res = [None]
     framep = tk.Frame(
         root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
-
-
+    framep1 = [None, None, None, None]
+    framep2 = [None, None, None, None]
+    framep3 = [None, None, None, None]
+    f_listbox(framep, framep1, "Choix de la saison", "single", SEASON, param, 1, 14,
+              type="str")
+    f_listbox(framep, framep2, "Choix de la médaille", "single", MEDAL, param,
+              2, 14, type="str")
+    f_listbox(framep, framep3, "Choix de l'année de début et de fin",
+              "multiple", YEAR, param, 3, 14, 10, "lint")
     personnaliser_p(personnalise, framep)
-    executer(fonction, personnalise, l_param, res, 3)
-
+    executer(fonction, personnalise, l_param, res, 4)
 
 
 def page_q5():
