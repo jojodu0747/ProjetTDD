@@ -24,9 +24,9 @@ def plus_medailles(noc="FRA", limit=10, offset=0, years=None, increasing=False):
 
     Returns
     -------
-    pandas.DataFrame
-        Un DataFrame contenant les colonnes nom du sport et nombre de médailles,
-        trié par le nombre de médailles selon le paramètre increasing.
+    str
+        Représente une un tableau (nom du sport, nombre de médailles), trie par le
+        nombre de médailles selon le paramètre increasing.
     """
     if (not isinstance(years, list) or not all(isinstance(y, int) for y in years)) \
             and years is not None:

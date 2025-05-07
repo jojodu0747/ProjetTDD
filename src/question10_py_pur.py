@@ -26,8 +26,8 @@ def plus_medailles_pur(noc="FRA", limit=10, offset=0, years=None,
 
     Returns
     -------
-    list[tuple]
-        Une liste de tuples (nom du sport, nombre de médailles), triée par le
+    str
+        Représente une un tableau (nom du sport, nombre de médailles), trie par le
         nombre de médailles selon le paramètre increasing.
     """
     if (not isinstance(years, list) or not all(isinstance(y, int) for y in years)) and \
