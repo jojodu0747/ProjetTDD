@@ -10,10 +10,10 @@ def question2(liste_sessions, type_medaille, combine):
     Parameters
     __________
 
-    liste_sessions: list[str]
+    liste_sessions : list[str]
         Liste des sessions prises en compte par la fonction
 
-    type_medaille: list[str]
+    type_medaille : list[str]
         Liste des médailles pris en compte
 
     combine : bool
@@ -24,7 +24,7 @@ def question2(liste_sessions, type_medaille, combine):
     _______
 
     list[tuple[tuple]]
-        La liste des couple ((argmin, min), (argmax, max)) pour chaque session ou pour
+        La liste des couples ((argmin, min), (argmax, max)) pour chaque session ou pour
         l'ensemble des sessions selon combine.
     """
     df = BDD_EVENTS.loc[
