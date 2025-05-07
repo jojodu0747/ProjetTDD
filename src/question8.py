@@ -83,8 +83,3 @@ def ratio_F_H(increasing=False, limit=10, offset=0, nb_med_min=10,
                                                    ascending=increasing)[
                                                     offset:offset+limit]
     return pays_sexes_sorted
-
-
-# réponses à la question
-print(ratio_F_H())
-print(ratio_F_H(increasing=True))

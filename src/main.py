@@ -7,6 +7,9 @@ from question4 import age_moyen_medailles
 from question6_fonctions import calculate_grouped_mean
 from question6_python_pur import moyenne_age_par_sexe
 from question7_fonctions import compter_medailles_par_continent
+from question8 import ratio_F_H
+from question10 import plus_medailles
+from question10_py_pur import plus_medailles_pur
 
 # Constantes
 COULEUR_PRINCIPALE = "#25292D"
@@ -157,11 +160,17 @@ def personnaliser_f(personnalise, frame):
 def submit(lb, param, i, type):
     select = []
     if type == "lstr":
-        for index in lb.curselection():
-            select.insert(index, lb.get(index))
+        if len(lb.curselection()) == 0:
+            select = None
+        else:
+            for index in lb.curselection():
+                select.insert(index, lb.get(index))
     elif type == "lint":
-        for index in lb.curselection():
-            select.insert(index, int(lb.get(index)))
+        if len(lb.curselection()) == 0:
+            select = None
+        else:
+            for index in lb.curselection():
+                select.insert(index, int(lb.get(index)))
     elif type == "str":
         select = lb.get(lb.curselection()[0])
     elif type == "int":
@@ -257,12 +266,12 @@ def e_submit(entry, param, i, type):
     print(param)
 
 
-def f_entry(frame, ssframe, text, param, i, type="str"):
+def f_entry(frame, ssframe, text, param, i, type="str", fontsize=20):
     ssframe[0] = tk.Frame(frame)
     ssframe[1] = tk.Label(
         ssframe[0],
         text=text,
-        font=('Arial', 20))
+        font=('Arial', fontsize))
     ssframe[2] = tk.Entry(
         ssframe[0],
         font=('Arial', 20),
@@ -472,6 +481,29 @@ def page_q8():
     frame_b.pack(side="left", fill="both")
     bouton_retour(frame_b)
     presentation_question(7)
+    personnalise = [False]
+    param_d = [False, False, 10, 0, 10, None, False]
+    param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [ratio_F_H]
+    res = [None]
+    framep = tk.Frame(
+        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+    framep1 = [None, None]
+    framep2 = [None, None, None, None]
+    framep3 = [None, None, None, None]
+    framep4 = [None, None, None, None]
+    framep5 = [None, None, None, None]
+    framep6 = [None, None]
+    f_checkbox(framep, framep1, "Ordre croissant", param, 1)
+    f_entry(framep, framep2, "Limit", param, 2, "int", 15)
+    f_entry(framep, framep3, "Offset", param, 3, "int", 15)
+    f_entry(framep, framep4, "Nombre de médailles requis", param, 4, "int", 15)
+    f_listbox(framep, framep5, "Choix des années",
+              "multiple", YEAR, param, 5, 14, 10, "lint")
+    f_checkbox(framep, framep6, "Regroupe par région au lieu de NOC", param, 6)
+    personnaliser_p(personnalise, framep)
+    executer(frame_b, fonction, personnalise, l_param, res)
 
 
 def page_q9():
@@ -488,6 +520,20 @@ def page_q10():
     frame_b.pack(side="left", fill="both")
     bouton_retour(frame_b)
     presentation_question(9)
+    personnalise = [False]
+    param_d = [False]
+    param = param_d.copy()
+    l_param = [param_d, param]
+    fonction = [question2, question2_p]
+    res = [None]
+    python_pur(l_param)
+    framep = tk.Frame(
+        root, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+
+
+
+    personnaliser_p(personnalise, framep)
+    executer(frame_b, fonction, personnalise, l_param, res)
 
 
 page_principale()
