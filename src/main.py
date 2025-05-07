@@ -1,6 +1,6 @@
 import tkinter as tk
 from base_dd import adresse_fichier
-from modalite import REGION, NOC, MEDAL, GAMES, YEAR, EVENT, SEASON
+from modalite import SEXE, REGION, NOC, MEDAL, GAMES, YEAR, EVENT, SEASON
 from question2_py_pur import question2_p
 from question2 import question2
 from question3 import top_nations_par_sport
@@ -98,7 +98,7 @@ def bouton_retour(frame_b):
                              relief="solid",
                              padx=5,
                              pady=5)
-    bouton_retour.pack(anchor="w", pady=5, padx=5)
+    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
     bouton_retour.bind("<Enter>",
                        lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
     bouton_retour.bind("<Leave>",
@@ -285,7 +285,7 @@ def executer(frame, fonction, person, param, res, facu=None, lab=None):
         relief="solid",
         padx=5,
         pady=5)
-    bouton_retour.pack(anchor="w", pady=5, padx=5)
+    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
     bouton_retour.bind("<Enter>",
                        lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
     bouton_retour.bind("<Leave>",
@@ -378,7 +378,7 @@ def bouton_sauvegarde(frame, param, person, res, i):
             relief="solid",
             padx=5,
             pady=5)
-    bouton_retour.pack(anchor="w", pady=5, padx=5)
+    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
     bouton_retour.bind(
         "<Enter>", lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
     bouton_retour.bind(
@@ -395,6 +395,84 @@ def sauvegarde(param, person, res, i):
         str += "Argument:\n" + f"{param[int(person[0])][1:]!s:>80}\n"
         str += "Résultat:\n" + f"{res[0]!s:>80}\n" + "-"*80 + "\n"
         file.write(str)
+
+
+def p2_entrainer(param, res):
+    pass
+
+
+def p2_executer(param, res):
+    pass
+
+
+def p2_sauvegarde(param, res):
+    pass
+
+
+def p2_bouton_entrainer(frame, param, res):
+    bouton_retour = tk.Label(
+        frame,
+        text="Entrainer",
+        bg=COULEUR_PRINCIPALE,
+        fg=COULEUR_FONT,
+        font=("Arial", 20),
+        anchor="w",
+        height=2,
+        borderwidth=3,
+        relief="solid",
+        padx=5,
+        pady=5)
+    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
+    bouton_retour.bind("<Enter>",
+                       lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
+    bouton_retour.bind("<Leave>",
+                       lambda event: event_change_couleur(event, COULEUR_PRINCIPALE))
+    bouton_retour.bind(
+        "<Button-1>", lambda event: p2_entrainer(param, res))
+
+
+def p2_bouton_executer(frame, param, res):
+    bouton_retour = tk.Label(
+        frame,
+        text="Executer",
+        bg=COULEUR_PRINCIPALE,
+        fg=COULEUR_FONT,
+        font=("Arial", 20),
+        anchor="w",
+        height=2,
+        borderwidth=3,
+        relief="solid",
+        padx=5,
+        pady=5)
+    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
+    bouton_retour.bind("<Enter>",
+                       lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
+    bouton_retour.bind("<Leave>",
+                       lambda event: event_change_couleur(event, COULEUR_PRINCIPALE))
+    bouton_retour.bind(
+        "<Button-1>", lambda event: p2_executer(param, res))
+
+
+def p2_bouton_sauvegarde(frame, param, res):
+    bouton_retour = tk.Label(
+            frame,
+            text="Sauvegarde",
+            bg=COULEUR_PRINCIPALE,
+            fg=COULEUR_FONT,
+            font=("Arial", 20),
+            anchor="w",
+            height=2,
+            borderwidth=3,
+            relief="solid",
+            padx=5,
+            pady=5)
+    bouton_retour.pack(anchor="w", pady=5, padx=5, fill="both")
+    bouton_retour.bind(
+        "<Enter>", lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
+    bouton_retour.bind(
+        "<Leave>", lambda event: event_change_couleur(event, COULEUR_PRINCIPALE))
+    bouton_retour.bind(
+        "<Button-1>", lambda event: p2_sauvegarde(param, res))
 
 
 # Définition des pages
@@ -750,34 +828,33 @@ def page_p2():
     frame_b.pack(side="left", fill="both")
     bouton_retour(frame_b)
     presentation_question(7)
-    personnalise = [False]
-    param_d = [False, False, 10, 0, 10, None, False]
-    param = param_d.copy()
-    l_param = [param_d, param]
-    fonction = [ratio_F_H]
-    res = [None]
-    framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
-    framep = tk.Frame(
-        framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
+    param = [False, None, None, None, None, None, None, None]
+    res = [None, None]
+    frame_e = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+    frame_p = tk.Frame(root, bg=COULEUR_PRINCIPALE)
+
     framep1 = [None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None, None, None]
     framep4 = [None, None, None, None]
     framep5 = [None, None, None, None]
     framep6 = [None, None]
-    f_checkbox(framep, framep1, "Ordre croissant", param, 1)
-    f_entry(framep, framep2, "Limit", param, 2, "int", 15)
-    f_entry(framep, framep3, "Offset", param, 3, "int", 15)
-    f_entry(framep, framep4, "Nombre de médailles requis", param, 4, "int", 15)
-    f_listbox(framep, framep5, "Choix des années",
+    framep6 = [None, None]
+    f_checkbox(frame_p, framep1, "Ordre croissant", param, 1)
+    f_entry(frame_p, framep2, "Limit", param, 2, "int", 15)
+    f_entry(frame_p, framep3, "Offset", param, 3, "int", 15)
+    f_entry(frame_p, framep4, "Nombre de médailles requis", param, 4, "int", 15)
+    f_listbox(frame_p, framep5, "Choix des années",
               "multiple", YEAR, param, 5, 14, 10, "lint")
-    f_checkbox(framep, framep6, "Regroupe par région au lieu de NOC", param, 6)
-    personnaliser_p(personnalise, framep)
-    framepp.pack(fill="both")
+    f_checkbox(frame_p, framep6, "Regroupe par région au lieu de NOC", param, 6)
+
+    frame_e.pack(fill="both")
+    frame_p.pack(fill="both")
     lab_affiche = [None]
     creer_affiche(lab_affiche)
-    executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
-    bouton_sauvegarde(frame_b, l_param, personnalise, res, 7)
+    p2_bouton_entrainer(frame_b, param, res)
+    p2_bouton_executer(frame_b, param, res)
+    p2_bouton_sauvegarde(frame_b, param, res)
 
 
 page_principale()
