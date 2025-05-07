@@ -6,13 +6,12 @@ import csv
 adresse = (os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
            + "/donnees_jeux_olympiques/")
 adresse_fichier = (os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-           + "/sauvegarde/")
+                   + "/sauvegarde/")
 
 # Import en pandas et suppresion des doublons
 BDD_EVENTS = pd.read_csv(adresse + "athlete_events.csv")
 BDD_REGIONS = pd.read_csv(adresse + "noc_regions.csv")
 BDD_EVENTS.drop_duplicates()
-
 
 # Receuil des lignes doublons dans une lecture en python pur
 # n_doublon correspond à l'ensemble des lignes qui sont des doublons
