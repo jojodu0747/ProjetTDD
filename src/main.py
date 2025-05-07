@@ -45,6 +45,18 @@ QUESTION = [
 AUTEUR = [
     "Joé", "Aziz", "Joé", "Joé", "Aziz", "Eliott", "Eliott", "Louis", "Aziz", "Louis"
 ]
+FICHIER = [
+    "question1.txt",
+    "question2.txt",
+    "question3.txt",
+    "question4.txt",
+    "question5.txt",
+    "question6.txt",
+    "question7.txt",
+    "question8.txt",
+    "question9.txt",
+    "question10.txt"
+]
 
 
 # Initialisation
@@ -330,7 +342,7 @@ def f_entry(frame, ssframe, text, param, i, type="str", fontsize=20):
 
 
 def affiche(lab, res):
-    lab[0].config(text=str(res[0]))
+    lab[0].config(text="Résultat\n" + str(res[0]))
 
 
 def creer_affiche(lab):
@@ -346,6 +358,34 @@ def creer_affiche(lab):
         pady=5,
         justify="left")
     lab[0].pack(anchor="w")
+
+
+def bouton_sauvegarde(frame, param, res, i):
+    bouton_retour = tk.Label(
+            frame,
+            text="Executer",
+            bg=COULEUR_PRINCIPALE,
+            fg=COULEUR_FONT,
+            font=("Arial", 20),
+            anchor="w",
+            height=2,
+            borderwidth=3,
+            relief="solid",
+            padx=5,
+            pady=5)
+    bouton_retour.pack(anchor="w", pady=5, padx=5)
+    bouton_retour.bind(
+        "<Enter>", lambda event: event_change_couleur(event, COULEUR_SECONDAIRE))
+    bouton_retour.bind(
+        "<Leave>", lambda event: event_change_couleur(event, COULEUR_PRINCIPALE))
+    bouton_retour.bind(
+        "<Button-1>", lambda event: sauvegarde(param, res, i))
+
+
+def sauvegarde(param, res, i):
+
+
+
 
 
 # Définition des pages
@@ -428,6 +468,7 @@ def page_q1():
     lab_affiche = [None]
     creer_affiche(lab_affiche)
     executer(frame_b, fonction, personnalise, l_param, res, lab=lab_affiche)
+    bouton_sauvegarde(frame_b, param, res, 0)
 
 
 def page_q2():
