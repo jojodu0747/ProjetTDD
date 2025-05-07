@@ -3,9 +3,9 @@ from base_dd import BDD_EVENTS
 
 def question2(liste_sessions, type_medaille, combine):
     """Cette fonction répond à la question 2.
-    Il donne les bornes inférieur et supérieur du nombre de médailles obtenue
-    par chaque nation, selon les types de médailles pris en compte, et selon
-    les sessions pris en compte.
+    Il donne les bornes inférieures et supérieures du nombre de médailles obtenues
+    par chaque nation, selon les types de médailles pris en compte, et selon les
+    sessions prises en compte.
 
     Parameters
     __________
@@ -36,15 +36,15 @@ def question2(liste_sessions, type_medaille, combine):
     if combine:
         ag = ag.groupby(['Games', 'NOC']).count()
         ag = (ag.groupby('NOC').sum())['ID']
-        min = (list(ag.iloc[[ag.argmin()]].index)[0], int(ag.min()))
-        max = (list(ag.iloc[[ag.argmax()]].index)[0], int(ag.max()))
-        res = [(min, max)]
+        mini = (list(ag.iloc[[ag.argmin()]].index)[0], int(ag.min()))
+        maxi = (list(ag.iloc[[ag.argmax()]].index)[0], int(ag.max()))
+        res = [(mini, maxi)]
     else:
         ag = (ag.groupby(['Games', 'NOC']).count())['ID']
         res = []
         for session in liste_sessions:
             ag_s = ag[session]
-            min = (list(ag_s.iloc[[ag_s.argmin()]].index)[0], int(ag_s.min()))
-            max = (list(ag_s.iloc[[ag_s.argmax()]].index)[0], int(ag_s.max()))
-            res.append((min, max))
+            mini = (list(ag_s.iloc[[ag_s.argmin()]].index)[0], int(ag_s.min()))
+            maxi = (list(ag_s.iloc[[ag_s.argmax()]].index)[0], int(ag_s.max()))
+            res.append((mini, maxi))
     return res
