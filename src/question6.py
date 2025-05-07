@@ -21,7 +21,7 @@ def calculate_grouped_mean(
 
     returns
     -------
-    pandas.Series
+    {'M': float, 'F': float}
         Une série contenant la moyenne de target_column, groupée par group_column.
     """
     filtered_df = df[df[filter_column].notna()]
