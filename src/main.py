@@ -15,7 +15,7 @@ from question1 import count_medaille
 from question1_py_pur import count_medaille_pp
 from liste_recherche import listerecherche, listerecherche_sport
 from question5 import bornes_age
-from question9 import question9
+from question9 import evolution_femmes
 from reglog import modelerl, prevision
 
 # Constantes
@@ -785,7 +785,7 @@ def page_q9():
     param_d = [False, [1896, 1952, 2016]]
     param = param_d.copy()
     l_param = [param_d, param]
-    fonction = [question9]
+    fonction = [evolution_femmes]
     res = [None]
     framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(

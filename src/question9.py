@@ -2,7 +2,7 @@ from base_dd import BDD_EVENTS
 from modalite import YEAR
 
 
-def question9(annee=None):
+def evolution_femmes(annee=None):
     """Cette fonction répond à la question 9.
     Elle donne le pourcentage de femmes durant les épreuves de JO selon les années
 
