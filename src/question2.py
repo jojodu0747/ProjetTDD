@@ -15,7 +15,7 @@ def bornes(liste_sessions, type_medaille, combine):
         Liste des sessions prises en compte par la fonction
 
     type_medaille : list[str]
-        Liste des médailles pris en compte
+        Liste des médailles prises en compte
 
     combine : bool
         Si True le calcul est fait sur l'ensemble des sessions sinon il est fait
