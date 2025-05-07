@@ -5,7 +5,7 @@ from question2_py_pur import question2_p
 from question2 import question2
 from question3 import top_nations_par_sport
 from question4 import age_moyen_medailles
-from question6_fonctions import calculate_grouped_mean
+from question6 import calculate_grouped_mean
 from question6_python_pur import moyenne_age_par_sexe
 from question7 import compter_medailles_par_continent
 from question8 import ratio_F_H
@@ -398,15 +398,21 @@ def sauvegarde(param, person, res, i):
 
 
 def p2_entrainer(param, res):
-    pass
+    res[0] = modelerl(param[0])
 
 
 def p2_executer(param, res):
-    pass
+    res[1] = prevision(*param[1:])
 
 
 def p2_sauvegarde(param, res):
-    pass
+    with open(adresse_fichier + FICHIER[10],
+              "a",
+              encoding="utf-8") as file:
+        str = f"Sport:{param[0]:>74}\n"
+        str += f"Argument:{param[1:]:>71}\n"
+        str += f"Résultat:{res[1]!s:>71}\n" + "-"*80 + "\n"
+        file.write(str)
 
 
 def p2_bouton_entrainer(frame, param, res):
@@ -828,7 +834,7 @@ def page_p2():
     frame_b.pack(side="left", fill="both")
     bouton_retour(frame_b)
     presentation_question(7)
-    param = [False, None, None, None, None, None, None, None]
+    param = [None, None, None, None, None, None, None]
     res = [None, None]
     frame_e = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     frame_p = tk.Frame(root, bg=COULEUR_PRINCIPALE)
@@ -839,7 +845,7 @@ def page_p2():
     framep4 = [None, None, None, None]
     framep5 = [None, None, None, None]
     framep6 = [None, None]
-    framep6 = [None, None]
+    framep7 = [None, None]
     f_checkbox(frame_p, framep1, "Ordre croissant", param, 1)
     f_entry(frame_p, framep2, "Limit", param, 2, "int", 15)
     f_entry(frame_p, framep3, "Offset", param, 3, "int", 15)
