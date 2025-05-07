@@ -13,7 +13,7 @@ from question10 import plus_medailles
 from question10_py_pur import plus_medailles_pur
 from question1 import count_medaille
 from question1_py_pur import count_medaille_pp
-from liste_recherche import listerecherche
+from liste_recherche import listerecherche, listerecherche_sport
 from question5 import question5
 from question9 import question9
 from reglog import modelerl, prevision
@@ -220,7 +220,7 @@ def f_listbox(frame, ssframe, text, typesel, liste, param, i, fontsize,
     ssframe[3].pack()
 
 
-def f_joueur(frame, ssframe, text, param, i):
+def f_levenshtein(frame, ssframe, text, fonction, D, param, i):
     ssframe[0] = tk.Frame(frame)
     ssframe[1] = tk.Label(
         ssframe[0],
@@ -234,9 +234,10 @@ def f_joueur(frame, ssframe, text, param, i):
         width=50
     )
     ssframe[3] = tk.Button(ssframe[0], text="chercher",
-                           command=lambda: j_submit(ssframe[2], ssframe[4]))
+                           command=lambda: f_submit(ssframe[2], ssframe[4],
+                                                    fonction, D))
     ssframe[4] = tk.Listbox(ssframe[0], font=('Arial', 20),
-                            selectmode="single", width=50, height=5)
+                            selectmode="single", width=50, height=10)
     ssframe[5] = tk.Button(ssframe[0], text="submit",
                            command=lambda: submit(ssframe[4], param, i, "str"))
     ssframe[0].pack(side='left', expand=True)
@@ -247,10 +248,10 @@ def f_joueur(frame, ssframe, text, param, i):
     ssframe[5].pack()
 
 
-def j_submit(entry, listbox):
+def f_submit(entry, listbox, fonction, D):
     listbox.delete(0, tk.END)
     nom = entry.get()
-    liste = listerecherche(nom)
+    liste = fonction(nom, D)
     for name in liste:
         listbox.insert(tk.END, name)
 
@@ -416,8 +417,8 @@ def p2_sauvegarde(param, res):
     with open(adresse_fichier + FICHIER[10],
               "a",
               encoding="utf-8") as file:
-        str = f"Sport:{param[0]:>74}\n"
-        str += f"Argument:{param[1:]:>71}\n"
+        str = f"Sport:{param[0]!s:>74}\n"
+        str += f"Argument:{param[1:]!s:>71}\n"
         str += f"Résultat:{res[1]!s:>71}\n" + "-"*80 + "\n"
         file.write(str)
 
@@ -563,7 +564,7 @@ def page_q1():
     framep = tk.Frame(
         framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
     framep1 = [None, None, None, None, None, None]
-    f_joueur(framep, framep1, "Choix du joueur", param, 1)
+    f_levenshtein(framep, framep1, "Choix du joueur", listerecherche, 100, param, 1)
     personnaliser_p(personnalise, framep)
     framepp.pack(fill="both")
     lab_affiche = [None]
@@ -617,11 +618,11 @@ def page_q3():
     framepp = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     framep = tk.Frame(
         framepp, bg=COULEUR_PRINCIPALE, padx=5, pady=10)
-    framep1 = [None, None, None, None]
+    framep1 = [None, None, None, None, None, None]
     framep2 = [None, None, None, None]
     framep3 = [None, None, None, None]
-    f_listbox(framep, framep1, "Choix du sport", "single", EVENT, param, 1, 14, 70,
-              "str")
+    f_levenshtein(framep, framep1, "Choix du sport", listerecherche_sport, 100,
+                  param, 1)
     f_listbox(framep, framep2, "Choix de l'année de début et de fin",
               "multiple", YEAR, param, 2, 14, 10, "lint")
     f_entry(framep, framep3, "Nombre de nation", param, 3, "int")
@@ -840,7 +841,7 @@ def page_p2():
     frame_b = tk.Frame(root, bg=COULEUR_PRINCIPALE)
     frame_b.pack(side="left", fill="both")
     bouton_retour(frame_b)
-    presentation_question(7)
+    presentation_question(10)
     param = [None, None, None, None, None, None]
     res = [None, None]
     frame_e = tk.Frame(root, bg=COULEUR_PRINCIPALE)

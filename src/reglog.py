@@ -40,8 +40,13 @@ def modelerl(Sport=None):
     df = df.copy()
     df_1 = df[df["Medal"] == 1]
     df_0 = df[df["Medal"] == 0]
-    df_0_sampled = df_0.sample(n=len(df_1), random_state=42)
-    df = pd.concat([df_1, df_0_sampled], axis=0).sample(
+    if df_0.shape[0] > df_1.shape[0]:
+        df_0_sampled = df_0.sample(n=len(df_1), random_state=42)
+        df_1_sampled = df_1.copy()
+    else:
+        df_1_sampled = df_1.sample(n=len(df_0), random_state=42)
+        df_0_sampled = df_0.copy()
+    df = pd.concat([df_1_sampled, df_0_sampled], axis=0).sample(
         frac=1, random_state=42).reset_index(drop=True)
     X = df.drop(columns='Medal')
     Y = df['Medal']
