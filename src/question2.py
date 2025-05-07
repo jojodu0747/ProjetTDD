@@ -69,7 +69,7 @@ def bornes(liste_sessions, type_medaille, combine):
                 f"{x[1][1]:>9}\n"
             )
             string += (
-                f"{liste_sessions[i]:<11}|{'min':^7}|{REGION[NOC.index(x[0][0])]:<50}|"
+                f"{'':<11}|{'min':^7}|{REGION[NOC.index(x[0][0])]:<50}|"
                 f"{x[0][1]:>9}\n"
             )
             string += "-"*80 + "\n"
