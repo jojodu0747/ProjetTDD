@@ -20,4 +20,5 @@ def count_medaille(nom):
         Le nombre total de médailles remportées par l'athlète spécifié.
     """
     Rep = BDD_EVENTS[BDD_EVENTS["Name"] == nom]
-    return len(Rep.dropna())
+    res = f"{nom} a remporté {len(Rep.dropna())} médailles.\n"
+    return res
