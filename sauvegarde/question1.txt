@@ -2,5 +2,6 @@ Python Pur:                                                                False
 Argument:
                                                      ['Michael Fred Phelps, II']
 Résultat:
-                                                                            None
+                               Michael Fred Phelps, II a remporté 28 médailles.
+
 --------------------------------------------------------------------------------

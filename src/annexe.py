@@ -1,14 +1,9 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from question7 import compter_medailles_par_continent
-from question3 import top_nations_par_sport
+from question9 import 
 from base_dd import BDD_EVENTS
 from modalite import YEAR
-
-# Question 1
-print(top_nations_par_sport("Athletics Men's Long Jump", 1896, 2016, 5))
-#print(top_nations_par_sport("Athletics men's Jump", 1896, 2016, 5))
-
 
 # Question 7
 
