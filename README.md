@@ -34,6 +34,11 @@ La régression logistique se retrouve dans les fichiers pythons commançant pas 
 
 Pour utiliser la regression logistique on peut se servir de l'interface (cf suite).
 
+Un exemple d'utilisation de la regression logistique a été repertorié dans le fichier 
+**reglog.txt** dans le dossier **sauvegarde**.
+On y a entrainé le jeux de données du basket, et pour un joueur américain d'1m99, de 89
+kilos et de 25ans, le modèle de régression le donne gagnant.
+
 ### L'interface
 
 L'interface se lance via 'run' dans le fichier main. 
@@ -52,5 +57,5 @@ Pour la **régression logistique** : la méthode est comme suit:
     2. Ensuite on entraine notre modèle en cliquant sur **Entrainer**
 
     3. Choisir les charactéristique de son athlète et les **submit** unes à unes
-    
+
     4. **Excecuter** et on obtient le resultat
