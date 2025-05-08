@@ -36,7 +36,9 @@ Pour utiliser la regression logistique on peut se servir de l'interface (cf suit
 
 ### L'interface
 
-L'interface se lance via 'run' dans le fichier main.
+L'interface se lance via 'run' dans le fichier main. 
+Point important pour avoir pleinemement accès à l'interface il est d'avoir une 
+résolution de 1680x1050.
 
 Pour obtenir une réponse aux questions il suffit de submit puis d'exectuter et le
 résultat apparait.
@@ -44,7 +46,11 @@ pour sauvegarder nos résultats il suffit de cliquer sur sauvegarder  **après**
 avoir executer.
 
 Pour la **régression logistique** : la méthode est comme suit:
+
     1. D'abord on choisit un ou plusieurs sport avec la rubrique **choix des sports**
+
     2. Ensuite on entraine notre modèle en cliquant sur **Entrainer**
+
     3. Choisir les charactéristique de son athlète et les **submit** unes à unes
+    
     4. **Excecuter** et on obtient le resultat
