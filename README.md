@@ -13,6 +13,7 @@ Projet traitement de données Ensai 1a
 - Écran d'au minimum 1680x1050pixels
 - Python 3.13.1
 - Installer Numpy, Pandas, Matplotlib.pyplot, Levenshtein et sklearn
+- Posséder les bases de données et les mettre dans un dossier du même niveau que source et qui se nomme “donnees_jeux_olympiques”
 
 ## Introduction
 
