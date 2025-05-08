@@ -6,3 +6,4 @@ src/__pycache__/*
 .pytest_cache/*
 src/.pytest_cache/*
 Louis/*
+sauvegarde/*
