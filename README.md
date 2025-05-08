@@ -71,3 +71,7 @@ Pour la **régression logistique** : la méthode est comme suit:
     3. Choisir les charactéristique de son athlète et les **submit** unes à unes
 
     4. **Excecuter** et on obtient le resultat
+
+**ATTENTION**: Certaines boîtes de sélections, malgré que l’on puisse choisir autant
+de valeurs que l’on souhaite, ne devraient pas dépasser 2 sélections. (Q3 et
+4 concernant les boites d'année de début et de fin)
