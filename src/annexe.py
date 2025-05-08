@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from question7 import compter_medailles_par_continent
-from question9 import 
 from base_dd import BDD_EVENTS
 from modalite import YEAR
 
@@ -31,9 +30,10 @@ plt.ylabel("Nombre de médailles")
 plt.legend(title="Continent", bbox_to_anchor=(0.99, 1), loc="upper left")
 plt.tight_layout()
 plt.grid(True, linestyle="--", alpha=0.6)
-#plt.show()
+# plt.show()
 
 # Question 9
+
 
 def plot_evolution_femmes(annee=None):
     if annee is None:

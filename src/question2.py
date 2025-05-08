@@ -61,7 +61,8 @@ def bornes(liste_sessions, type_medaille, combine):
             maxi = (list(ag_s.iloc[[ag_s.argmax()]].index)[0], int(ag_s.max()))
             res.append((mini, maxi))
         string = (
-            f"{'Session':<11}|{'min/max':^7}|{'Region':<50}|{'Médailles':>9}\n" + "-"*80 + "\n"
+            f"{'Session':<11}|{'min/max':^7}|{'Region':<50}|{'Médailles':>9}\n" +
+            "-"*80 + "\n"
         )
         for i, x in enumerate(res):
             string += (
