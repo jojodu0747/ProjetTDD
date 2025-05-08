@@ -1,10 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from question7 import compter_medailles_par_continent
-<<<<<<< HEAD
-=======
-from question9 import evolution_femmes
->>>>>>> 713894c0191a86d120b0ea0ab501c91f0e2ffaa3
 from base_dd import BDD_EVENTS
 from modalite import YEAR
 
