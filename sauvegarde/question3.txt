@@ -1,0 +1,24 @@
+Python Pur:                                                                False
+Argument:
+                                  ["Athletics Men's Long Jump", [1896, 2016], 5]
+Résultat:
+              NOC
+USA    12
+JPN     6
+FIN     5
+FRA     5
+GBR     5
+dtype: int64
+--------------------------------------------------------------------------------
+Python Pur:                                                                False
+Argument:
+                                  ["Athletics Men's Long Jump", [1900, 2016], 5]
+Résultat:
+              NOC
+USA    12
+JPN     6
+FIN     5
+FRA     5
+GBR     5
+dtype: int64
+--------------------------------------------------------------------------------

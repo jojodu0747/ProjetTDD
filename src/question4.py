@@ -39,3 +39,6 @@ def age_moyen_medailles(type_jo, type_medaille, annee_debut, annee_fin):
 
     # Calculer et retourner l'âge moyen
     return BDD_EVENTS_FILTRE["Age"].mean()
+
+medailles_uniques = BDD_EVENTS["Medal"].dropna().unique()
+print(medailles_uniques)
