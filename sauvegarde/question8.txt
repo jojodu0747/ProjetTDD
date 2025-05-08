@@ -1,0 +1,16 @@
+Python Pur:                                                                False
+Argument:
+                                                 [False, 10, 0, 10, None, False]
+Résultat:
+     NOC           Country notes  Ratio_F_H     F     M
+41   CHN             China   NaN   1.168283  2770  2371
+159  PLW             Palau   NaN   1.083333    13    12
+48   CPV        Cape Verde   NaN   1.000000     9     9
+131  MHL  Marshall Islands   NaN   1.000000     7     7
+163  PRK       North Korea   NaN   0.963504   396   411
+5    ANG            Angola   NaN   0.934783   129   138
+218  VIE           Vietnam   NaN   0.925000    74    80
+22   BHU            Bhutan   NaN   0.894737    17    19
+116  LCA       Saint Lucia   NaN   0.866667    13    15
+211  UKR           Ukraine   NaN   0.855693  1180  1379
+--------------------------------------------------------------------------------

@@ -1,0 +1,18 @@
+Python Pur:                                                                False
+Argument:
+                                                     ['FRA', 10, 0, None, False]
+Résultat:
+Sport               | Nombre de médaillés
+-----------------------------------------
+Fencing             |                 310
+Cycling             |                 151
+Rowing              |                 119
+Sailing             |                 117
+Athletics           |                 116
+Swimming            |                  80
+Equestrianism       |                  79
+Handball            |                  77
+Shooting            |                  69
+Gymnastics          |                  58
+
+--------------------------------------------------------------------------------

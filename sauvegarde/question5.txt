@@ -1,0 +1,10 @@
+Python Pur:                                                                False
+Argument:
+                                                                [['Gold'], None]
+Résultat:
+     |Nom                                               | Age|     Medal
+------------------------------------------------------------------------
+max  |Charles Jacobus                                   |  64|      Gold
+min  |Hans Bourquin                                     |  13|      Gold
+
+--------------------------------------------------------------------------------

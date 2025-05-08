@@ -1,0 +1,13 @@
+Python Pur:                                                                False
+Argument:
+                                                                          [2016]
+Résultat:
+Continent
+Autre       608
+Europe      587
+Amérique    421
+Asie        287
+Afrique      71
+Océanie      49
+Name: count, dtype: int64
+--------------------------------------------------------------------------------

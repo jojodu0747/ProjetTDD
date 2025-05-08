@@ -1,0 +1,6 @@
+Python Pur:                                                                False
+Argument:
+                                                     ['Michael Fred Phelps, II']
+Résultat:
+                                                                            None
+--------------------------------------------------------------------------------
